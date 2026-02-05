@@ -1,9 +1,7 @@
 <!-- =========================
-PARTE 1/2 — index.html (AJUSTADO AL PIE)
-Cambios puntuales:
-- Separé imagen de LOGO/HERO vs IMAGEN OVERLAY (2 URLs distintas)
-- Paneles más sólidos (más contraste) sin apagar la landing
-- OG/Twitter usan logoImage (como pediste “logo en OG”)
+PARTE 1/2 — index.html (MODIFICADO)
+Cambios: hero con logo GRANDE + overlay de fondo (no recortado) adaptado (contain)
+Pegá esta parte primero, luego PARTE 2/2
 ========================= -->
 <!DOCTYPE html>
 <html lang="es">
@@ -17,14 +15,14 @@ Cambios puntuales:
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Unalome del alma | Terapias Holísticas" />
   <meta property="og:description" content="Terapias holísticas: Registros Akáshicos, Reiki, Limpiezas energéticas, Sanación chamánica guaraní, Barras de Access y Mediumnidad. Longchamps, Buenos Aires." />
-  <meta property="og:image" content="https://iili.io/fbK9l1e.jpg" id="ogImg" />
+  <meta property="og:image" content="https://iili.io/fbK9l1e.jpg" />
   <meta property="og:locale" content="es_AR" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Unalome del alma | Terapias Holísticas" />
   <meta name="twitter:description" content="Terapias holísticas: Registros Akáshicos, Reiki, Limpiezas energéticas, Sanación chamánica guaraní, Barras de Access y Mediumnidad." />
-  <meta name="twitter:image" content="https://iili.io/fbK9l1e.jpg" id="twImg" />
+  <meta name="twitter:image" content="https://iili.io/fbK9l1e.jpg" />
 
   <style>
     :root{
@@ -38,10 +36,8 @@ Cambios puntuales:
       --mint:#bdf0dc;
       --sky:#b9ddff;
 
-      /* +++ MÁS SÓLIDOS (contraste real) */
-      --card: rgba(255,255,255,.92);
-      --card2: rgba(255,255,255,.86);
-
+      --card: rgba(255,255,255,.70);
+      --card2: rgba(255,255,255,.56);
       --shadow: 0 18px 60px rgba(31,41,55,.10);
       --shadow2: 0 10px 30px rgba(31,41,55,.08);
 
@@ -68,21 +64,24 @@ Cambios puntuales:
       overflow-x:hidden;
     }
 
-    /* Overlay global (NO recortado): la URL la inyecta el script */
+    /* Overlay global (NO recortado): usa contain para que no se recorte.
+       Se centra y se adapta a pantalla. */
     body::before{
       content:"";
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
+      background-image: url("https://iili.io/fbK9l1e.jpg");
       background-repeat: no-repeat;
       background-position: center;
-      background-size: contain;
-      opacity: .10; /* un toque menos para que no opaque */
+      background-size: contain;   /* clave: no recorta */
+      opacity: .12;              /* ajustá si querés más/menos */
       filter: saturate(1.02) contrast(1.02);
       transform: translateZ(0);
     }
 
+    /* suaviza el overlay para que no se vea "solo", suma un velo pastel */
     body::after{
       content:"";
       position: fixed;
@@ -90,12 +89,13 @@ Cambios puntuales:
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.18), transparent 55%),
-        radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.16), transparent 55%),
-        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.14), transparent 55%);
-      opacity: .78;
+        radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.20), transparent 55%),
+        radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.18), transparent 55%),
+        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.16), transparent 55%);
+      opacity: .85;
     }
 
+    /* Todo el contenido arriba del overlay */
     header, main, footer, .wafab{ position: relative; z-index: 1; }
 
     a{color:inherit}
@@ -145,14 +145,13 @@ Cambios puntuales:
       padding:11px 14px;
       border-radius: 999px;
       border:1px solid rgba(31,41,55,.14);
-      background: rgba(255,255,255,.88);
+      background: rgba(255,255,255,.68);
       box-shadow: var(--shadow2);
       text-decoration:none;
       font-weight: 600;
       font-size: 13px;
       transition: transform .15s ease, background .15s ease;
       white-space: nowrap;
-      backdrop-filter: blur(10px);
     }
     .btn:hover{transform: translateY(-1px)}
     .btn.primary{
@@ -171,7 +170,7 @@ Cambios puntuales:
       border-radius: 14px;
       padding:10px 12px;
       border:1px solid rgba(31,41,55,.14);
-      background: rgba(255,255,255,.90);
+      background: rgba(255,255,255,.75);
       box-shadow: var(--shadow2);
     }
     .hamb svg{width:18px; height:18px}
@@ -179,11 +178,10 @@ Cambios puntuales:
     .mobilePanel{display:none; padding: 0 0 14px 0;}
     .mobilePanel .inner{
       border:1px solid rgba(31,41,55,.10);
-      background: rgba(255,255,255,.90);
+      background: rgba(255,255,255,.72);
       border-radius: var(--radius);
       padding: 10px;
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(12px);
     }
     .mobilePanel a{
       display:block;
@@ -195,6 +193,7 @@ Cambios puntuales:
     }
     .mobilePanel a:hover{background: rgba(31,41,55,.05)}
 
+    /* Hero */
     .hero{padding: 44px 0 22px;}
     .heroGrid{
       display:grid;
@@ -203,55 +202,55 @@ Cambios puntuales:
       align-items: stretch;
     }
 
+    /* cards */
     .card{
-      border:1px solid rgba(31,41,55,.12);
-      background: var(--card);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.70);
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
-      backdrop-filter: blur(12px);
     }
     .card::before{
       content:"";
       position:absolute; inset:-2px;
       background:
-        radial-gradient(700px 380px at 20% 15%, rgba(203,184,255,.45), transparent 55%),
-        radial-gradient(700px 380px at 70% 30%, rgba(255,194,214,.34), transparent 55%),
-        radial-gradient(700px 380px at 60% 95%, rgba(189,240,220,.34), transparent 55%);
-      opacity:.40;
+        radial-gradient(700px 380px at 20% 15%, rgba(203,184,255,.55), transparent 55%),
+        radial-gradient(700px 380px at 70% 30%, rgba(255,194,214,.40), transparent 55%),
+        radial-gradient(700px 380px at 60% 95%, rgba(189,240,220,.42), transparent 55%);
+      opacity:.55;
       pointer-events:none;
     }
     .card > *{position:relative; z-index:1}
 
-    .heroMain{padding: 26px 22px; text-align:center;}
+    .heroMain{padding: 26px 22px; text-align:center;} /* centrado */
     .heroKicker{
       display:inline-flex;
       gap:8px; align-items:center;
       padding:7px 10px;
       border-radius: 999px;
-      background: rgba(255,255,255,.92);
-      border:1px solid rgba(31,41,55,.12);
-      color: rgba(31,41,55,.92);
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(31,41,55,.10);
+      color: rgba(31,41,55,.84);
       font-size: 12px;
       margin-bottom: 12px;
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(12px);
     }
     .heroKicker .dot{
       width:8px; height:8px; border-radius: 999px;
       background: linear-gradient(135deg, var(--lav), var(--rose), var(--mint));
     }
 
+    /* LOGO GRANDE EN HERO */
     .heroLogo{
       width: clamp(140px, 22vw, 230px);
       height: clamp(140px, 22vw, 230px);
       border-radius: 34px;
-      background: rgba(255,255,255,.94);
-      border: 1px solid rgba(31,41,55,.14);
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(31,41,55,.12);
       box-shadow: var(--shadow);
-      object-fit: contain;
-      padding: 12px;
+      object-fit: contain; /* no recorta el logo */
+      padding: 12px;       /* aire alrededor */
       margin: 10px auto 14px;
       display:block;
     }
@@ -265,7 +264,7 @@ Cambios puntuales:
     }
     .sub{
       margin: 0 auto 16px;
-      color: rgba(31,41,55,.82);
+      color: var(--muted);
       font-size: 15px;
       line-height: 1.55;
       max-width: 56ch;
@@ -282,10 +281,9 @@ Cambios puntuales:
       font-size: 12px;
       padding: 7px 10px;
       border-radius: 999px;
-      border:1px solid rgba(31,41,55,.12);
-      background: rgba(255,255,255,.90);
-      color: rgba(31,41,55,.92);
-      backdrop-filter: blur(12px);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.62);
+      color: rgba(31,41,55,.84);
     }
     .heroActions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top: 8px}
 
@@ -294,14 +292,13 @@ Cambios puntuales:
       margin: 14px auto 0;
       padding: 12px 12px;
       border-radius: var(--radius);
-      background: var(--card2);
-      border:1px solid rgba(31,41,55,.12);
-      color: rgba(31,41,55,.90);
+      background: rgba(255,255,255,.56);
+      border:1px solid rgba(31,41,55,.10);
+      color: rgba(31,41,55,.80);
       font-size: 13px;
       line-height: 1.45;
       max-width: 760px;
       text-align:left;
-      backdrop-filter: blur(12px);
     }
     .note svg{width:18px; height:18px; flex:0 0 auto; margin-top:1px}
 
@@ -310,10 +307,9 @@ Cambios puntuales:
       display:flex; align-items:center; gap:12px;
       padding: 14px;
       border-radius: var(--radius2);
-      border: 1px solid rgba(31,41,55,.12);
-      background: var(--card2);
+      border: 1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.58);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(12px);
     }
     .sideTop img{
       width:64px; height:64px;
@@ -323,18 +319,17 @@ Cambios puntuales:
       object-fit: cover;
     }
     .sideTop .meta strong{display:block; font-size: 14px}
-    .sideTop .meta span{display:block; font-size: 12px; color:var(--muted); margin-top: 2px}
+    .sideTop .meta span{display:block; font-size: 12px; color: var(--muted); margin-top: 2px}
     .sideList{margin-top: 12px; display:grid; gap:10px;}
     .mini{
       padding: 12px 12px;
       border-radius: var(--radius2);
-      border:1px solid rgba(31,41,55,.12);
-      background: var(--card2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.55);
       box-shadow: var(--shadow2);
       font-size: 13px;
-      color: rgba(31,41,55,.92);
+      color: rgba(31,41,55,.86);
       line-height: 1.45;
-      backdrop-filter: blur(12px);
     }
     .mini b{font-weight:700}
     .mini .line{display:flex; gap:8px; align-items:flex-start}
@@ -352,7 +347,7 @@ Cambios puntuales:
       font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
       letter-spacing: .2px;
     }
-    .sectionTitle p{margin:0; color: rgba(31,41,55,.74); font-size: 13px}
+    .sectionTitle p{margin:0; color: var(--muted); font-size: 13px}
 
     .grid{
       display:grid;
@@ -362,13 +357,12 @@ Cambios puntuales:
     .service{
       padding: 14px 14px 12px;
       border-radius: var(--radius2);
-      border:1px solid rgba(31,41,55,.12);
-      background: var(--card2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.56);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(12px);
     }
     .service h3{margin:0 0 6px; font-size: 15px;}
-    .service p{margin:0 0 10px; color: rgba(31,41,55,.78); font-size: 13px; line-height: 1.5;}
+    .service p{margin:0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.5;}
     .service .sbtn{
       display:inline-flex; gap:8px; align-items:center;
       text-decoration:none;
@@ -376,10 +370,9 @@ Cambios puntuales:
       font-size: 13px;
       padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.90);
-      border:1px solid rgba(31,41,55,.12);
+      background: rgba(255,255,255,.68);
+      border:1px solid rgba(31,41,55,.10);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(12px);
     }
     .service .sbtn:hover{transform: translateY(-1px)}
     .service .sbtn svg{width:16px; height:16px}
@@ -392,10 +385,9 @@ Cambios puntuales:
     .step{
       padding: 14px;
       border-radius: var(--radius2);
-      border:1px solid rgba(31,41,55,.12);
-      background: var(--card2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.60);
       box-shadow: var(--shadow2);
-      backdrop-filter: blur(12px);
     }
     .step .n{
       width:34px; height:34px;
@@ -407,7 +399,7 @@ Cambios puntuales:
       margin-bottom: 10px;
     }
     .step b{display:block; margin-bottom:6px}
-    .step span{color: rgba(31,41,55,.78); font-size: 13px; line-height:1.5}
+    .step span{color: var(--muted); font-size: 13px; line-height:1.5}
 
     .faq{
       display:grid;
@@ -415,12 +407,11 @@ Cambios puntuales:
       gap: 12px;
     }
     details{
-      border:1px solid rgba(31,41,55,.12);
-      background: var(--card2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.62);
       border-radius: var(--radius2);
       box-shadow: var(--shadow2);
       padding: 12px 14px;
-      backdrop-filter: blur(12px);
     }
     summary{
       cursor:pointer;
@@ -429,8 +420,9 @@ Cambios puntuales:
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
     summary::-webkit-details-marker{display:none}
-    details p{margin:10px 0 0; color: rgba(31,41,55,.78); font-size: 13px; line-height:1.55}
+    details p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.55}
 
+    /* Floating WhatsApp */
     .wafab{
       position: fixed;
       right: 14px;
@@ -443,8 +435,8 @@ Cambios puntuales:
       border-radius: 999px;
       text-decoration:none;
       color: #0b1f16;
-      background: rgba(255,255,255,.92);
-      border:1px solid rgba(31,41,55,.14);
+      background: rgba(255,255,255,.80);
+      border:1px solid rgba(31,41,55,.12);
       box-shadow: var(--shadow);
       backdrop-filter: blur(12px);
       max-width: calc(100vw - 28px);
@@ -460,6 +452,7 @@ Cambios puntuales:
     .wafab span{display:block; font-size: 12px; color: rgba(31,41,55,.72)}
     .wafab svg{width:18px; height:18px}
 
+    /* Responsive */
     @media (max-width: 920px){
       .heroGrid{grid-template-columns: 1fr; }
       .brand{min-width:auto}
@@ -481,9 +474,11 @@ Cambios puntuales:
         height: min(220px, 78vw);
         border-radius: 30px;
       }
+      /* en móviles, si querés que el overlay se vea MÁS grande sin recortar:
+         sube un poco el contain usando un "trick" con background-size */
       body::before{
-        background-size: 92% auto;
-        opacity: .11;
+        background-size: 92% auto; /* sigue sin recortar */
+        opacity: .14;
       }
     }
 
@@ -509,11 +504,7 @@ Cambios puntuales:
     window.__CFG__ = {
       whatsapp: "54911XXXXXXXX", // <-- REEMPLAZÁ por tu número: ej 5491164499481
       instagram: "unalomedelalma",
-      location: "Longchamps, Buenos Aires, Argentina",
-
-      /* AL PIE: separadas */
-      logoImage: "https://iili.io/fbK9l1e.jpg",      // LOGO header + hero + OG
-      overlayImage: "https://iili.io/fbK9l1e.jpg"    // OVERLAY (poné acá TU imagen overlay)
+      location: "Longchamps, Buenos Aires, Argentina"
     };
   </script>
 
@@ -521,7 +512,7 @@ Cambios puntuales:
     <div class="wrap">
       <div class="nav">
         <div class="brand">
-          <img id="logoHeader" src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo">
+          <img src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo">
           <div class="t">
             <strong>Unalome del alma</strong>
             <span>Terapias Holísticas</span>
@@ -569,7 +560,8 @@ Cambios puntuales:
           <div class="card heroMain">
             <div class="heroKicker"><span class="dot"></span> Terapias holísticas • espacio cuidado y confidencial</div>
 
-            <img class="heroLogo" id="logoHero" src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo grande">
+            <!-- LOGO GRANDE EN HERO -->
+            <img class="heroLogo" src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo grande">
 
             <h1>Terapias holísticas para armonizar tu energía y tu bienestar</h1>
             <p class="sub">
@@ -588,8 +580,10 @@ Cambios puntuales:
             <div class="heroActions">
               <a class="btn primary" id="ctaHero" href="#turnos">
                 Consultar por un turno
-                <svg viewBox="0 0 24 <!-- =========================
-PARTE 2/2 — index.html (AJUSTADO AL PIE)
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2"<!-- =========================
+PARTE 2/2 — index.html (MODIFICADO)
+Pegá esta parte debajo de la PARTE 1/2
 ========================= -->
 
   <section id="turnos">
@@ -603,9 +597,9 @@ PARTE 2/2 — index.html (AJUSTADO AL PIE)
 
       <div class="card" style="padding:18px;">
         <div style="display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:stretch;">
-          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.12); background: var(--card2); box-shadow: var(--shadow2); backdrop-filter: blur(12px);">
+          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
             <h3 style="margin:0 0 8px; font-size:18px;">Reservá tu turno</h3>
-            <p style="margin:0 0 14px; color: rgba(31,41,55,.78); font-size: 13px; line-height:1.55;">
+            <p style="margin:0 0 14px; color: var(--muted); font-size: 13px; line-height:1.55;">
               Contame qué necesitás y te recomiendo la terapia ideal. Después coordinamos día y horario.
             </p>
 
@@ -644,9 +638,9 @@ PARTE 2/2 — index.html (AJUSTADO AL PIE)
             </div>
           </div>
 
-          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.12); background: var(--card2); box-shadow: var(--shadow2); backdrop-filter: blur(12px);">
+          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
             <h3 style="margin:0 0 8px; font-size:18px;">Mensaje rápido</h3>
-            <p style="margin:0 0 10px; color: rgba(31,41,55,.78); font-size: 13px; line-height:1.55;">
+            <p style="margin:0 0 10px; color: var(--muted); font-size: 13px; line-height:1.55;">
               Tocá un botón y te deja el mensaje listo para enviar.
             </p>
 
@@ -683,11 +677,12 @@ PARTE 2/2 — index.html (AJUSTADO AL PIE)
     </div>
   </section>
 
+  <!-- WhatsApp flotante -->
   <a class="wafab" id="waFab" href="#" aria-label="WhatsApp">
     <span class="waicon" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none">
         <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".12"/>
-        <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.20-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+        <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
       </svg>
     </span>
     <span class="text">
@@ -703,30 +698,8 @@ PARTE 2/2 — index.html (AJUSTADO AL PIE)
       const ig = (CFG.instagram || "unalomedelalma").replace('@','');
       const loc = CFG.location || "Longchamps, Buenos Aires, Argentina";
 
-      const logoImage = CFG.logoImage || "https://iili.io/fbK9l1e.jpg";
-      const overlayImage = CFG.overlayImage || logoImage;
-
       const $ = (s)=>document.querySelector(s);
       const $$ = (s)=>Array.from(document.querySelectorAll(s));
-
-      /* Inyecta imágenes AL PIE */
-      const logoHeader = $("#logoHeader");
-      const logoHero = $("#logoHero");
-      const logoSide = $("#logoSide");
-      if(logoHeader) logoHeader.src = logoImage;
-      if(logoHero) logoHero.src = logoImage;
-      if(logoSide) logoSide.src = logoImage;
-
-      const ogImg = document.getElementById("ogImg");
-      const twImg = document.getElementById("twImg");
-      if(ogImg) ogImg.setAttribute("content", logoImage);
-      if(twImg) twImg.setAttribute("content", logoImage);
-
-      /* Overlay en body::before */
-      document.body.style.setProperty("--overlay-url", `url("${overlayImage}")`);
-      const styleOverlay = document.createElement("style");
-      styleOverlay.textContent = `body::before{ background-image: var(--overlay-url); }`;
-      document.head.appendChild(styleOverlay);
 
       ["#locTxt","#locTxt2","#locTxt3"].forEach(id=>{
         const el = $(id);
