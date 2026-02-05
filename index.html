@@ -786,3 +786,200 @@ Pegá esta parte debajo de la PARTE 1/2
 
 </body>
                   </html>
+<!-- =========================
+PARTE 2/2 — index.html (MODIFICADO)
+Pegá esta parte debajo de la PARTE 1/2
+========================= -->
+
+  <section id="turnos">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>Turnos y contacto</h2>
+          <p>Escribime y coordinamos. Respuesta por WhatsApp.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div style="display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:stretch;">
+          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
+            <h3 style="margin:0 0 8px; font-size:18px;">Reservá tu turno</h3>
+            <p style="margin:0 0 14px; color: var(--muted); font-size: 13px; line-height:1.55;">
+              Contame qué necesitás y te recomiendo la terapia ideal. Después coordinamos día y horario.
+            </p>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              <a class="btn dark" id="ctaTurnos" href="#">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
+                  <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+                </svg>
+                Escribirme por WhatsApp
+              </a>
+
+              <a class="btn" id="igLinkTurnos" href="#" target="_blank" rel="noopener">
+                Ver perfil de Instagram
+              </a>
+            </div>
+
+            <div style="margin-top:12px; display:grid; gap:10px;">
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                    <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <div><b>Ubicación:</b> <span id="locTxt3"></span></div>
+                </div>
+              </div>
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 8h16M6 4v4M18 4v4M6 20v-6a6 6 0 0 1 12 0v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                  </svg>
+                  <div><b>Horarios:</b> a coordinar por WhatsApp (editá si querés)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
+            <h3 style="margin:0 0 8px; font-size:18px;">Mensaje rápido</h3>
+            <p style="margin:0 0 10px; color: var(--muted); font-size: 13px; line-height:1.55;">
+              Tocá un botón y te deja el mensaje listo para enviar.
+            </p>
+
+            <div style="display:grid; gap:10px;">
+              <a class="btn" id="quick1" href="#" style="justify-content:center;">Consultar por turno (general)</a>
+              <a class="btn" id="quick2" href="#" style="justify-content:center;">Consultar por Reiki</a>
+              <a class="btn" id="quick3" href="#" style="justify-content:center;">Consultar por Registros Akáshicos</a>
+              <a class="btn" id="quick4" href="#" style="justify-content:center;">Consultar por Limpieza energética</a>
+            </div>
+
+            <div class="note" style="margin-top:12px;">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M11 11h1v6h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <b>Tip:</b> si querés, editá el texto de los mensajes en el script (queda más personalizado).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="foot wrap">
+          <div>© <span id="year"></span> Unalome del alma · Terapias Holísticas</div>
+          <div>
+            Creado y diseñado por
+            <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener">Ciborg 347</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- WhatsApp flotante -->
+  <a class="wafab" id="waFab" href="#" aria-label="WhatsApp">
+    <span class="waicon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".12"/>
+        <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="text">
+      <strong>WhatsApp</strong>
+      <span>Consultar y reservar turno</span>
+    </span>
+  </a>
+
+  <script>
+    (function(){
+      const CFG = window.__CFG__ || {};
+      const wa = (CFG.whatsapp || "").replace(/\D/g,'');
+      const ig = (CFG.instagram || "unalomedelalma").replace('@','');
+      const loc = CFG.location || "Longchamps, Buenos Aires, Argentina";
+
+      const $ = (s)=>document.querySelector(s);
+      const $$ = (s)=>Array.from(document.querySelectorAll(s));
+
+      ["#locTxt","#locTxt2","#locTxt3"].forEach(id=>{
+        const el = $(id);
+        if(el) el.textContent = loc;
+      });
+
+      const y = $("#year");
+      if(y) y.textContent = new Date().getFullYear();
+
+      const hamb = $("#hamb");
+      const panel = $("#mobilePanel");
+      if(hamb && panel){
+        hamb.addEventListener("click", ()=>{
+          const open = panel.style.display === "block";
+          panel.style.display = open ? "none" : "block";
+        });
+        panel.addEventListener("click", (e)=>{
+          if(e.target.tagName === "A") panel.style.display = "none";
+        });
+      }
+
+      const igUrl = "https://instagram.com/" + ig;
+      ["#igLinkTop","#igLinkSide","#igLinkTurnos"].forEach(id=>{
+        const el = $(id);
+        if(el) el.href = igUrl;
+      });
+
+      function waUrl(text){
+        const msg = encodeURIComponent(text);
+        return "https://wa.me/" + wa + "?text=" + msg;
+      }
+
+      const baseMsg = "Hola! 😊 Quería consultar por un turno en Unalome del alma. ¿Tenés disponibilidad?";
+
+      const ctaTop = $("#ctaTop");
+      const ctaHero = $("#ctaHero");
+      const ctaTurnos = $("#ctaTurnos");
+      const waFab = $("#waFab");
+
+      [ctaTop, ctaHero, ctaTurnos, waFab].forEach(el=>{
+        if(el) el.href = waUrl(baseMsg);
+      });
+
+      $$(".waService").forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          e.preventDefault();
+          const svc = btn.getAttribute("data-svc") || "una sesión";
+          const msg = `Hola! 😊 Quería consultar por ${svc} en Unalome del alma. ¿Cómo sería y qué disponibilidad tenés?`;
+          window.open(waUrl(msg), "_blank");
+        });
+        btn.href = waUrl(baseMsg);
+      });
+
+      const q1 = $("#quick1");
+      const q2 = $("#quick2");
+      const q3 = $("#quick3");
+      const q4 = $("#quick4");
+
+      if(q1) q1.href = waUrl("Hola! 😊 Quería consultar por un turno. ¿Qué horarios tenés disponibles?");
+      if(q2) q2.href = waUrl("Hola! 😊 Quería consultar por Reiki. ¿Cómo es la sesión y qué disponibilidad tenés?");
+      if(q3) q3.href = waUrl("Hola! 😊 Quería consultar por Registros Akáshicos. ¿Cómo es la sesión y qué disponibilidad tenés?");
+      if(q4) q4.href = waUrl("Hola! 😊 Quería consultar por una limpieza energética. ¿Cómo sería y qué disponibilidad tenés?");
+
+      if(!wa){
+        [ctaTop, ctaHero, ctaTurnos, waFab, q1, q2, q3, q4].forEach(el=>{
+          if(!el) return;
+          el.href = "#";
+          el.addEventListener("click",(e)=>{
+            e.preventDefault();
+            alert("Falta configurar el WhatsApp arriba (window.__CFG__.whatsapp).");
+          });
+        });
+      }
+    })();
+  </script>
+
+</body>
+  </html>
