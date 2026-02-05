@@ -1,0 +1,788 @@
+<!-- =========================
+PARTE 1/2 — index.html
+Pegá esta parte primero (hasta el final de </section> FAQ)
+Luego pegás la PARTE 2/2
+========================= -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unalome del alma | Terapias Holísticas</title>
+  <meta name="description" content="Registros Akáshicos, Reiki, Limpiezas energéticas, Sanación chamánica guaraní, Barras de Access y Sesiones de mediumnidad. Longchamps, Buenos Aires." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Unalome del alma | Terapias Holísticas" />
+  <meta property="og:description" content="Terapias holísticas: Registros Akáshicos, Reiki, Limpiezas energéticas, Sanación chamánica guaraní, Barras de Access y Mediumnidad. Longchamps, Buenos Aires." />
+  <meta property="og:image" content="https://iili.io/fbK9l1e.jpg" />
+  <meta property="og:locale" content="es_AR" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Unalome del alma | Terapias Holísticas" />
+  <meta name="twitter:description" content="Terapias holísticas: Registros Akáshicos, Reiki, Limpiezas energéticas, Sanación chamánica guaraní, Barras de Access y Mediumnidad." />
+  <meta name="twitter:image" content="https://iili.io/fbK9l1e.jpg" />
+
+  <style>
+    :root{
+      --bg: #fbf7ff;
+      --bg2:#f7fbff;
+      --ink:#1f2937;
+      --muted:#5b6472;
+
+      --lav:#cbb8ff;
+      --rose:#ffc2d6;
+      --mint:#bdf0dc;
+      --sky:#b9ddff;
+
+      --card: rgba(255,255,255,.70);
+      --card2: rgba(255,255,255,.56);
+      --stroke: rgba(31,41,55,.10);
+      --shadow: 0 18px 60px rgba(31,41,55,.10);
+      --shadow2: 0 10px 30px rgba(31,41,55,.08);
+
+      --radius: 20px;
+      --radius2: 28px;
+      --max: 1100px;
+
+      --cta: #1f2937;
+      --ctaInk: #ffffff;
+      --ctaSoft: rgba(31,41,55,.06);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(203,184,255,.45), transparent 55%),
+        radial-gradient(900px 520px at 80% 20%, rgba(255,194,214,.40), transparent 55%),
+        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.35), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(251,247,255,.55);
+      border-bottom: 1px solid rgba(31,41,55,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:12px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width: 220px;
+    }
+    .brand img{
+      width:44px; height:44px; border-radius: 14px;
+      background:#fff;
+      border:1px solid rgba(31,41,55,.10);
+      box-shadow: var(--shadow2);
+      object-fit: cover;
+    }
+    .brand .t{
+      display:flex; flex-direction:column; line-height:1.05;
+    }
+    .brand .t strong{font-size:14px; letter-spacing:.2px}
+    .brand .t span{font-size:12px; color:var(--muted)}
+
+    .menu{
+      display:flex; align-items:center; gap:10px;
+    }
+    .menu a{
+      text-decoration:none;
+      font-size:13px;
+      padding:8px 10px;
+      border-radius: 999px;
+      background: transparent;
+      border:1px solid transparent;
+      color: rgba(31,41,55,.86);
+    }
+    .menu a:hover{
+      background: rgba(255,255,255,.55);
+      border-color: rgba(31,41,55,.08);
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(31,41,55,.14);
+      background: rgba(255,255,255,.68);
+      box-shadow: var(--shadow2);
+      text-decoration:none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(203,184,255,.65), rgba(255,194,214,.60), rgba(189,240,220,.55));
+      border-color: rgba(31,41,55,.16);
+    }
+    .btn.dark{
+      background: var(--cta);
+      color: var(--ctaInk);
+      border-color: rgba(31,41,55,.26);
+    }
+    .btn svg{width:16px; height:16px}
+
+    .hamb{
+      display:none;
+      border-radius: 14px;
+      padding:10px 12px;
+      border:1px solid rgba(31,41,55,.14);
+      background: rgba(255,255,255,.75);
+      box-shadow: var(--shadow2);
+    }
+    .hamb svg{width:18px; height:18px}
+
+    .mobilePanel{
+      display:none;
+      padding: 0 0 14px 0;
+    }
+    .mobilePanel .inner{
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.72);
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: var(--shadow2);
+    }
+    .mobilePanel a{
+      display:block;
+      padding:10px 12px;
+      text-decoration:none;
+      border-radius: 14px;
+      font-size: 14px;
+      color: rgba(31,41,55,.92);
+    }
+    .mobilePanel a:hover{background: rgba(31,41,55,.05)}
+
+    /* Hero */
+    .hero{
+      padding: 44px 0 22px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items: stretch;
+    }
+    .card{
+      border:1px solid rgba(31,41,55,.10);
+      background: var(--card);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 380px at 20% 15%, rgba(203,184,255,.55), transparent 55%),
+        radial-gradient(700px 380px at 70% 30%, rgba(255,194,214,.40), transparent 55%),
+        radial-gradient(700px 380px at 60% 95%, rgba(189,240,220,.42), transparent 55%);
+      opacity:.65;
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1}
+    .heroMain{padding: 26px 22px}
+    .heroKicker{
+      display:inline-flex;
+      gap:8px; align-items:center;
+      padding:7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(31,41,55,.10);
+      color: rgba(31,41,55,.84);
+      font-size: 12px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow2);
+    }
+    .heroKicker .dot{
+      width:8px; height:8px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--lav), var(--rose), var(--mint));
+    }
+    h1{
+      margin: 0 0 10px;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-size: clamp(26px, 4.4vw, 40px);
+      letter-spacing: .2px;
+      line-height: 1.08;
+    }
+    .sub{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 56ch;
+    }
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin: 0 0 18px;
+    }
+    .chip{
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.62);
+      color: rgba(31,41,55,.84);
+    }
+    .heroActions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 8px}
+    .note{
+      display:flex; gap:10px; align-items:flex-start;
+      margin-top: 14px;
+      padding: 12px 12px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.56);
+      border:1px solid rgba(31,41,55,.10);
+      color: rgba(31,41,55,.80);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .note svg{width:18px; height:18px; flex:0 0 auto; margin-top:1px}
+
+    .heroSide{padding: 18px}
+    .sideTop{
+      display:flex; align-items:center; gap:12px;
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.58);
+      box-shadow: var(--shadow2);
+    }
+    .sideTop img{
+      width:64px; height:64px;
+      border-radius: 20px;
+      border:1px solid rgba(31,41,55,.12);
+      background:#fff;
+      object-fit: cover;
+    }
+    .sideTop .meta strong{display:block; font-size: 14px}
+    .sideTop .meta span{display:block; font-size: 12px; color: var(--muted); margin-top: 2px}
+    .sideList{
+      margin-top: 12px;
+      display:grid;
+      gap:10px;
+    }
+    .mini{
+      padding: 12px 12px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.55);
+      box-shadow: var(--shadow2);
+      font-size: 13px;
+      color: rgba(31,41,55,.86);
+      line-height: 1.45;
+    }
+    .mini b{font-weight:700}
+    .mini .line{display:flex; gap:8px; align-items:flex-start}
+    .mini svg{width:16px; height:16px; flex:0 0 auto; margin-top: 2px}
+
+    /* Sections */
+    section{padding: 18px 0}
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px;
+      margin: 18px 0 12px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 20px;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      letter-spacing: .2px;
+    }
+    .sectionTitle p{margin:0; color: var(--muted); font-size: 13px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .service{
+      padding: 14px 14px 12px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(31,41,55,.10);
+      background: var(--card2);
+      box-shadow: var(--shadow2);
+    }
+    .service h3{
+      margin:0 0 6px;
+      font-size: 15px;
+    }
+    .service p{
+      margin:0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .service .sbtn{
+      display:inline-flex; gap:8px; align-items:center;
+      text-decoration:none;
+      font-weight:700;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.68);
+      border:1px solid rgba(31,41,55,.10);
+      box-shadow: var(--shadow2);
+    }
+    .service .sbtn:hover{transform: translateY(-1px)}
+    .service .sbtn svg{width:16px; height:16px}
+
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .step{
+      padding: 14px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.60);
+      box-shadow: var(--shadow2);
+    }
+    .step .n{
+      width:34px; height:34px;
+      border-radius: 14px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+      background: linear-gradient(135deg, rgba(203,184,255,.65), rgba(255,194,214,.55), rgba(189,240,220,.50));
+      border:1px solid rgba(31,41,55,.10);
+      margin-bottom: 10px;
+    }
+    .step b{display:block; margin-bottom:6px}
+    .step span{color: var(--muted); font-size: 13px; line-height:1.5}
+
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    details{
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.62);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      padding: 12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.55}
+
+    /* Floating WhatsApp */
+    .wafab{
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 60;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      text-decoration:none;
+      color: #0b1f16;
+      background: rgba(255,255,255,.80);
+      border:1px solid rgba(31,41,55,.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      max-width: calc(100vw - 28px);
+    }
+    .wafab .waicon{
+      width:40px; height:40px; border-radius: 999px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(135deg, rgba(189,240,220,.75), rgba(185,221,255,.55));
+      border:1px solid rgba(31,41,55,.10);
+      flex:0 0 auto;
+    }
+    .wafab strong{display:block; font-size: 13px; line-height:1.1}
+    .wafab span{display:block; font-size: 12px; color: rgba(31,41,55,.72)}
+    .wafab svg{width:18px; height:18px}
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .heroGrid{grid-template-columns: 1fr; }
+      .brand{min-width:auto}
+      .menu{display:none}
+      .hamb{display:inline-flex}
+      .grid{grid-template-columns: 1fr 1fr}
+      .steps{grid-template-columns: 1fr}
+      .faq{grid-template-columns: 1fr}
+    }
+    @media (max-width: 520px){
+      .grid{grid-template-columns: 1fr}
+      .heroMain{padding: 22px 16px}
+      .heroSide{padding: 14px}
+      .sideTop{padding: 12px}
+      .wafab{left: 14px; right: 14px; justify-content: center}
+      .wafab .text{display:none} /* en móviles queda solo el botón para que no tape */
+    }
+
+    /* Footer credit */
+    footer{
+      padding: 26px 0 86px; /* espacio para el botón flotante */
+      color: rgba(31,41,55,.72);
+      font-size: 13px;
+    }
+    .foot{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 12px; flex-wrap:wrap;
+      border-top: 1px solid rgba(31,41,55,.10);
+      padding-top: 14px;
+    }
+    .foot a{color: rgba(31,41,55,.78); text-decoration:none; font-weight: 700}
+    .foot a:hover{text-decoration: underline}
+  </style>
+</head>
+<body>
+
+  <!-- Config rápida (EDITÁ SOLO ESTO) -->
+  <script>
+    window.__CFG__ = {
+      whatsapp: "54911XXXXXXXX", // <-- REEMPLAZÁ por tu número: ej 5491164499481
+      instagram: "unalomedelalma",
+      location: "Longchamps, Buenos Aires, Argentina"
+    };
+  </script>
+
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <img src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo">
+          <div class="t">
+            <strong>Unalome del alma</strong>
+            <span>Terapias Holísticas</span>
+          </div>
+        </div>
+
+        <nav class="menu" aria-label="Secciones">
+          <a href="#servicios">Servicios</a>
+          <a href="#como-es">Cómo es</a>
+          <a href="#turnos">Turnos</a>
+        </nav>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          <a class="btn dark" id="ctaTop" href="#turnos" aria-label="Reservar por WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
+              <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+            </svg>
+            Reservar por WhatsApp
+          </a>
+
+          <button class="hamb" id="hamb" aria-label="Abrir menú">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobilePanel" id="mobilePanel">
+        <div class="inner">
+          <a href="#servicios">Servicios</a>
+          <a href="#como-es">Cómo es</a>
+          <a href="#turnos">Turnos</a>
+          <a id="igLinkTop" href="#" target="_blank" rel="noopener">Ver Instagram</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero" id="inicio">
+        <div class="heroGrid">
+          <div class="card heroMain">
+            <div class="heroKicker"><span class="dot"></span> Terapias holísticas • espacio cuidado y confidencial</div>
+            <h1>Terapias holísticas para armonizar tu energía y tu bienestar</h1>
+            <p class="sub">
+              Acompañamiento con enfoque humano y claro. Elegimos juntas/os la terapia más adecuada según lo que estés atravesando.
+            </p>
+
+            <div class="chips" aria-label="Servicios principales">
+              <span class="chip">Registros Akáshicos</span>
+              <span class="chip">Reiki</span>
+              <span class="chip">Limpiezas energéticas</span>
+              <span class="chip">Sanación chamánica guaraní</span>
+              <span class="chip">Barras de Access</span>
+              <span class="chip">Sesiones de mediumnidad</span>
+            </div>
+
+            <div class="heroActions">
+              <a class="btn primary" id="ctaHero" href="#turnos">
+                Consultar por un turno
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a class="btn" href="#servicios">Ver servicios</a>
+            </div>
+
+            <div class="note">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M12 7v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <b>Ubicación:</b> <span id="locTxt"></span><br/>
+                <span>Para reservar, escribime por WhatsApp y coordinamos día y horario.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="card heroSide" aria-label="Info rápida">
+            <div class="sideTop">
+              <img src="https://iili.io/fbK9l1e.jpg" alt="Logo Unalome del alma">
+              <div class="meta">
+                <strong>Unalome del alma</strong>
+                <span>Terapias Holísticas</span>
+              </div>
+            </div>
+
+            <div class="sideList">
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                    <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <div><b>Atención:</b> <span id="locTxt2"></span></div>
+                </div>
+              </div>
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 12s2.5-5 8-5 8 5 8 5-2.5 5-8 5-8-5-8-5Z" stroke="currentColor" <!-- =========================
+PARTE 2/2 — index.html
+Pegá esta parte debajo de la PARTE 1/2
+========================= -->
+
+  <section id="turnos">
+    <div class="wrap">
+      <div class="sectionTitle">
+        <div>
+          <h2>Turnos y contacto</h2>
+          <p>Escribime y coordinamos. Respuesta por WhatsApp.</p>
+        </div>
+      </div>
+
+      <div class="card" style="padding:18px;">
+        <div style="display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:stretch;">
+          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
+            <h3 style="margin:0 0 8px; font-size:18px;">Reservá tu turno</h3>
+            <p style="margin:0 0 14px; color: var(--muted); font-size: 13px; line-height:1.55;">
+              Contame qué necesitás y te recomiendo la terapia ideal. Después coordinamos día y horario.
+            </p>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              <a class="btn dark" id="ctaTurnos" href="#">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
+                  <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+                </svg>
+                Escribirme por WhatsApp
+              </a>
+
+              <a class="btn" id="igLinkTurnos" href="#" target="_blank" rel="noopener">
+                Ver perfil de Instagram
+              </a>
+            </div>
+
+            <div style="margin-top:12px; display:grid; gap:10px;">
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                    <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <div><b>Ubicación:</b> <span id="locTxt3"></span></div>
+                </div>
+              </div>
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 8h16M6 4v4M18 4v4M6 20v-6a6 6 0 0 1 12 0v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                  </svg>
+                  <div><b>Horarios:</b> a coordinar por WhatsApp (editá si querés)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
+            <h3 style="margin:0 0 8px; font-size:18px;">Mensaje rápido</h3>
+            <p style="margin:0 0 10px; color: var(--muted); font-size: 13px; line-height:1.55;">
+              Tocá un botón y te deja el mensaje listo para enviar.
+            </p>
+
+            <div style="display:grid; gap:10px;">
+              <a class="btn" id="quick1" href="#" style="justify-content:center;">
+                Consultar por turno (general)
+              </a>
+              <a class="btn" id="quick2" href="#" style="justify-content:center;">
+                Consultar por Reiki
+              </a>
+              <a class="btn" id="quick3" href="#" style="justify-content:center;">
+                Consultar por Registros Akáshicos
+              </a>
+              <a class="btn" id="quick4" href="#" style="justify-content:center;">
+                Consultar por Limpieza energética
+              </a>
+            </div>
+
+            <div class="note" style="margin-top:12px;">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <path d="M11 11h1v6h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <div>
+                <b>Tip:</b> si querés, editá el texto de los mensajes en el script (queda más personalizado).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="foot wrap">
+          <div>© <span id="year"></span> Unalome del alma · Terapias Holísticas</div>
+          <div>
+            Creado y diseñado por
+            <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener">Ciborg 347</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <!-- WhatsApp flotante -->
+  <a class="wafab" id="waFab" href="#" aria-label="WhatsApp">
+    <span class="waicon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".12"/>
+        <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+      </svg>
+    </span>
+    <span class="text">
+      <strong>WhatsApp</strong>
+      <span>Consultar y reservar turno</span>
+    </span>
+  </a>
+
+  <script>
+    (function(){
+      const CFG = window.__CFG__ || {};
+      const wa = (CFG.whatsapp || "").replace(/\D/g,'');
+      const ig = (CFG.instagram || "unalomedelalma").replace('@','');
+      const loc = CFG.location || "Longchamps, Buenos Aires, Argentina";
+
+      const $ = (s)=>document.querySelector(s);
+      const $$ = (s)=>Array.from(document.querySelectorAll(s));
+
+      // Set texts
+      ["#locTxt","#locTxt2","#locTxt3"].forEach(id=>{
+        const el = $(id);
+        if(el) el.textContent = loc;
+      });
+      const y = $("#year"); if(y) y.textContent = new Date().getFullYear();
+
+      // Mobile menu
+      const hamb = $("#hamb");
+      const panel = $("#mobilePanel");
+      if(hamb && panel){
+        hamb.addEventListener("click", ()=>{
+          const open = panel.style.display === "block";
+          panel.style.display = open ? "none" : "block";
+        });
+        panel.addEventListener("click", (e)=>{
+          if(e.target.tagName === "A") panel.style.display = "none";
+        });
+      }
+
+      // Instagram links
+      const igUrl = "https://instagram.com/" + ig;
+      ["#igLinkTop","#igLinkSide","#igLinkTurnos"].forEach(id=>{
+        const el = $(id);
+        if(el) el.href = igUrl;
+      });
+
+      // WhatsApp builder
+      function waUrl(text){
+        const msg = encodeURIComponent(text);
+        return "https://wa.me/" + wa + "?text=" + msg;
+      }
+
+      const baseMsg = "Hola! 😊 Quería consultar por un turno en Unalome del alma. ¿Tenés disponibilidad?";
+
+      // Main CTAs
+      const ctaTop = $("#ctaTop");
+      const ctaHero = $("#ctaHero");
+      const ctaTurnos = $("#ctaTurnos");
+      const waFab = $("#waFab");
+
+      [ctaTop, ctaHero, ctaTurnos, waFab].forEach(el=>{
+        if(el) el.href = waUrl(baseMsg);
+      });
+
+      // Service buttons
+      $$(".waService").forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+          e.preventDefault();
+          const svc = btn.getAttribute("data-svc") || "una sesión";
+          const msg = `Hola! 😊 Quería consultar por ${svc} en Unalome del alma. ¿Cómo sería y qué disponibilidad tenés?`;
+          window.open(waUrl(msg), "_blank");
+        });
+        btn.href = waUrl(baseMsg);
+      });
+
+      // Quick messages
+      const q1 = $("#quick1");
+      const q2 = $("#quick2");
+      const q3 = $("#quick3");
+      const q4 = $("#quick4");
+
+      if(q1) q1.href = waUrl("Hola! 😊 Quería consultar por un turno. ¿Qué horarios tenés disponibles?");
+      if(q2) q2.href = waUrl("Hola! 😊 Quería consultar por Reiki. ¿Cómo es la sesión y qué disponibilidad tenés?");
+      if(q3) q3.href = waUrl("Hola! 😊 Quería consultar por Registros Akáshicos. ¿Cómo es la sesión y qué disponibilidad tenés?");
+      if(q4) q4.href = waUrl("Hola! 😊 Quería consultar por una limpieza energética. ¿Cómo sería y qué disponibilidad tenés?");
+
+      // If WhatsApp not set, disable links gracefully
+      if(!wa){
+        [ctaTop, ctaHero, ctaTurnos, waFab, q1, q2, q3, q4].forEach(el=>{
+          if(!el) return;
+          el.href = "#";
+          el.addEventListener("click",(e)=>{
+            e.preventDefault();
+            alert("Falta configurar el WhatsApp arriba (window.__CFG__.whatsapp).");
+          });
+        });
+      }
+    })();
+  </script>
+
+</body>
+                  </html>
