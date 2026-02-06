@@ -41,7 +41,7 @@
       --ctaInk: #ffffff;
 
       --overlayImg: url("https://iili.io/fbKG9GR.md.jpg");
-      --overlayOpacity: .18; /* overlay visible pero suave */
+      --overlayOpacity: .12; /* MÁS CLARO: se ve pero no tapa */
     }
 
     *{box-sizing:border-box}
@@ -56,17 +56,19 @@
         radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.35), transparent 55%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
-      overflow-x:hidden; /* clave para evitar “recorte”/scroll lateral en móvil */
+
+      /* Anti-desplazamiento móvil (corta overflow lateral real) */
+      overflow-x: hidden;
+      width: 100%;
     }
 
-    /* Overlay global (adaptado, SIN recorte). */
+    /* Overlay global (SIN recorte, visible suave). */
     body::before{
       content:"";
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-
       background-image: var(--overlayImg);
       background-repeat: no-repeat;
       background-position: center;
@@ -76,7 +78,7 @@
       transform: translateZ(0);
     }
 
-    /* velo pastel para que el overlay se integre */
+    /* velo pastel para integrar el overlay sin tapar */
     body::after{
       content:"";
       position: fixed;
@@ -84,9 +86,9 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.20), transparent 55%),
-        radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.18), transparent 55%),
-        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.16), transparent 55%);
+        radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.18), transparent 55%),
+        radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.16), transparent 55%),
+        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.14), transparent 55%);
       opacity: .95;
     }
 
@@ -95,7 +97,14 @@
 
     a{color:inherit}
     img{max-width:100%; height:auto; display:block}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Wrap sin overflow */
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 18px;
+      width: 100%;
+    }
 
     /* Topbar */
     .topbar{
@@ -104,21 +113,52 @@
       background: rgba(251,247,255,.55);
       border-bottom: 1px solid rgba(31,41,55,.08);
     }
+
+    /* CLAVE: evitar que el header empuje cosas fuera de pantalla */
     .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:14px; padding:12px 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+      min-width: 0; /* permite shrink */
     }
-    .brand{display:flex; align-items:center; gap:12px; min-width: 220px;}
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 0;    /* permite shrink */
+      flex: 1 1 auto;  /* ocupa y se achica */
+    }
     .brand img{
       width:44px; height:44px; border-radius: 14px;
       background:#fff;
       border:1px solid rgba(31,41,55,.10);
       box-shadow: var(--shadow2);
       object-fit: cover;
+      flex:0 0 auto;
     }
-    .brand .t{display:flex; flex-direction:column; line-height:1.05;}
-    .brand .t strong{font-size:14px; letter-spacing:.2px}
-    .brand .t span{font-size:12px; color:var(--muted)}
+    .brand .t{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+      min-width:0;
+    }
+    .brand .t strong{
+      font-size:14px; letter-spacing:.2px;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 38vw;
+    }
+    .brand .t span{
+      font-size:12px; color:var(--muted);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 38vw;
+    }
 
     .menu{display:flex; align-items:center; gap:10px;}
     .menu a{
@@ -148,6 +188,7 @@
       transition: transform .15s ease, background .15s ease;
       white-space: nowrap;
       max-width: 100%;
+      min-width: 0;
     }
     .btn:hover{transform: translateY(-1px)}
     .btn.primary{
@@ -161,6 +202,15 @@
     }
     .btn svg{width:16px; height:16px; flex:0 0 auto}
 
+    /* Contenedor derecha header */
+    .navRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex: 0 0 auto;
+      min-width: 0;
+    }
+
     .hamb{
       display:none;
       border-radius: 14px;
@@ -168,6 +218,7 @@
       border:1px solid rgba(31,41,55,.14);
       background: rgba(255,255,255,.75);
       box-shadow: var(--shadow2);
+      flex: 0 0 auto;
     }
     .hamb svg{width:18px; height:18px}
 
@@ -198,7 +249,7 @@
       position:relative;
       overflow:hidden;
       width: 100%;
-      min-width: 0; /* evita overflow en grids */
+      min-width: 0;
     }
     .card::before{
       content:"";
@@ -207,7 +258,7 @@
         radial-gradient(700px 380px at 20% 15%, rgba(203,184,255,.55), transparent 55%),
         radial-gradient(700px 380px at 70% 30%, rgba(255,194,214,.40), transparent 55%),
         radial-gradient(700px 380px at 60% 95%, rgba(189,240,220,.42), transparent 55%);
-      opacity:.50;
+      opacity:.48;
       pointer-events:none;
     }
     .card > *{position:relative; z-index:1}
@@ -300,6 +351,7 @@
       line-height: 1.45;
       max-width: 760px;
       text-align:left;
+      min-width:0;
     }
     .note svg{width:18px; height:18px; flex:0 0 auto; margin-top:1px}
 
@@ -382,6 +434,7 @@
       border:1px solid rgba(31,41,55,.10);
       box-shadow: var(--shadow2);
       max-width: 100%;
+      min-width: 0;
     }
     .service .sbtn:hover{transform: translateY(-1px)}
     .service .sbtn svg{width:16px; height:16px}
@@ -433,12 +486,13 @@
     summary::-webkit-details-marker{display:none}
     details p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.55}
 
-    /* Turnos grid */
+    /* Turnos */
     .turnosGrid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap:14px;
       align-items:stretch;
+      min-width:0;
     }
     .panel{
       padding:16px;
@@ -480,7 +534,7 @@
     .wafab svg{width:18px; height:18px}
 
     footer{
-      padding: 26px 0 86px; /* espacio para botón */
+      padding: 26px 0 86px;
       color: rgba(31,41,55,.72);
       font-size: 13px;
     }
@@ -489,36 +543,49 @@
       gap: 12px; flex-wrap:wrap;
       border-top: 1px solid rgba(31,41,55,.10);
       padding-top: 14px;
+      min-width:0;
     }
     .foot a{color: rgba(31,41,55,.78); text-decoration:none; font-weight: 700}
     .foot a:hover{text-decoration: underline}
 
-    /* Responsive (evita recortes en móvil) */
+    /* Responsive (SIN desplazamientos) */
     @media (max-width: 980px){
       .heroGrid{grid-template-columns: 1fr;}
       .turnosGrid{grid-template-columns: 1fr;}
-      .brand{min-width:auto}
       .menu{display:none}
       .hamb{display:inline-flex}
       .grid{grid-template-columns: 1fr 1fr}
       .steps{grid-template-columns: 1fr}
       .faq{grid-template-columns: 1fr}
     }
+
+    /* FIX HEADER EN MÓVIL: evita que el botón empuje el hamburguesa afuera */
     @media (max-width: 520px){
-      :root{ --overlayOpacity: .20; } /* un toque más visible en móvil */
+      :root{ --overlayOpacity: .13; } /* un toque más visible en móvil, pero claro */
       .wrap{padding: 0 14px;}
+
+      /* Brand más compacto */
+      .brand img{width:40px; height:40px; border-radius: 13px;}
+      .brand .t span{display:none;}
+      .brand .t strong{max-width: 52vw;}
+
+      /* Ocultamos el CTA del header SOLO en móviles para que NO desplace */
+      #ctaTop{display:none;}
+
       .grid{grid-template-columns: 1fr}
       .heroMain{padding: 22px 16px}
       .heroSide{padding: 14px}
       .sideTop{padding: 12px}
+
       .wafab{left: 14px; right: 14px; justify-content: center}
       .wafab .text{display:none}
+
       .heroLogo{
         width: min(240px, 82vw);
         height: min(240px, 82vw);
         border-radius: 30px;
       }
-      /* Overlay sin recorte pero mejor “encuadrado” en pantallas altas */
+
       body::before{
         background-size: 92% auto; /* sigue sin recortar */
       }
@@ -553,7 +620,7 @@
           <a href="#turnos">Turnos</a>
         </nav>
 
-        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+        <div class="navRight">
           <a class="btn dark" id="ctaTop" href="#turnos" aria-label="Reservar por WhatsApp">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
@@ -590,7 +657,6 @@
           <div class="card heroMain">
             <div class="heroKicker"><span class="dot"></span> Terapias holísticas • espacio cuidado y confidencial</div>
 
-            <!-- LOGO GRANDE EN HERO -->
             <img class="heroLogo" src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo grande" />
 
             <h1>Terapias holísticas para armonizar tu energía y tu bienestar</h1>
@@ -919,7 +985,6 @@
     </div>
   </main>
 
-  <!-- WhatsApp flotante -->
   <a class="wafab" id="waFab" href="#" aria-label="WhatsApp">
     <span class="waicon" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none">
