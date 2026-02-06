@@ -1,8 +1,3 @@
-<!-- =========================
-PARTE 1/2 — index.html (MODIFICADO)
-Cambios: hero con logo GRANDE + overlay de fondo (no recortado) adaptado (contain)
-Pegá esta parte primero, luego PARTE 2/2
-========================= -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,10 +29,7 @@ Pegá esta parte primero, luego PARTE 2/2
       --lav:#cbb8ff;
       --rose:#ffc2d6;
       --mint:#bdf0dc;
-      --sky:#b9ddff;
 
-      --card: rgba(255,255,255,.70);
-      --card2: rgba(255,255,255,.56);
       --shadow: 0 18px 60px rgba(31,41,55,.10);
       --shadow2: 0 10px 30px rgba(31,41,55,.08);
 
@@ -47,6 +39,9 @@ Pegá esta parte primero, luego PARTE 2/2
 
       --cta: #1f2937;
       --ctaInk: #ffffff;
+
+      --overlayImg: url("https://iili.io/fbKG9GR.md.jpg");
+      --overlayOpacity: .18; /* overlay visible pero suave */
     }
 
     *{box-sizing:border-box}
@@ -61,27 +56,27 @@ Pegá esta parte primero, luego PARTE 2/2
         radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.35), transparent 55%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
-      overflow-x:hidden;
+      overflow-x:hidden; /* clave para evitar “recorte”/scroll lateral en móvil */
     }
 
-    /* Overlay global (NO recortado): usa contain para que no se recorte.
-       Se centra y se adapta a pantalla. */
+    /* Overlay global (adaptado, SIN recorte). */
     body::before{
       content:"";
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: url("https://iili.io/fbK9l1e.jpg");
+
+      background-image: var(--overlayImg);
       background-repeat: no-repeat;
       background-position: center;
-      background-size: contain;   /* clave: no recorta */
-      opacity: .12;              /* ajustá si querés más/menos */
-      filter: saturate(1.02) contrast(1.02);
+      background-size: contain; /* NO recorta */
+      opacity: var(--overlayOpacity);
+      filter: saturate(1.02) contrast(1.03);
       transform: translateZ(0);
     }
 
-    /* suaviza el overlay para que no se vea "solo", suma un velo pastel */
+    /* velo pastel para que el overlay se integre */
     body::after{
       content:"";
       position: fixed;
@@ -92,15 +87,17 @@ Pegá esta parte primero, luego PARTE 2/2
         radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.20), transparent 55%),
         radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.18), transparent 55%),
         radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.16), transparent 55%);
-      opacity: .85;
+      opacity: .95;
     }
 
-    /* Todo el contenido arriba del overlay */
+    /* Todo el contenido arriba */
     header, main, footer, .wafab{ position: relative; z-index: 1; }
 
     a{color:inherit}
+    img{max-width:100%; height:auto; display:block}
     .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
 
+    /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
@@ -111,9 +108,7 @@ Pegá esta parte primero, luego PARTE 2/2
       display:flex; align-items:center; justify-content:space-between;
       gap:14px; padding:12px 0;
     }
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width: 220px;
-    }
+    .brand{display:flex; align-items:center; gap:12px; min-width: 220px;}
     .brand img{
       width:44px; height:44px; border-radius: 14px;
       background:#fff;
@@ -152,6 +147,7 @@ Pegá esta parte primero, luego PARTE 2/2
       font-size: 13px;
       transition: transform .15s ease, background .15s ease;
       white-space: nowrap;
+      max-width: 100%;
     }
     .btn:hover{transform: translateY(-1px)}
     .btn.primary{
@@ -163,7 +159,7 @@ Pegá esta parte primero, luego PARTE 2/2
       color: var(--ctaInk);
       border-color: rgba(31,41,55,.26);
     }
-    .btn svg{width:16px; height:16px}
+    .btn svg{width:16px; height:16px; flex:0 0 auto}
 
     .hamb{
       display:none;
@@ -193,16 +189,7 @@ Pegá esta parte primero, luego PARTE 2/2
     }
     .mobilePanel a:hover{background: rgba(31,41,55,.05)}
 
-    /* Hero */
-    .hero{padding: 44px 0 22px;}
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items: stretch;
-    }
-
-    /* cards */
+    /* Cards */
     .card{
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.70);
@@ -210,6 +197,8 @@ Pegá esta parte primero, luego PARTE 2/2
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
+      width: 100%;
+      min-width: 0; /* evita overflow en grids */
     }
     .card::before{
       content:"";
@@ -218,12 +207,20 @@ Pegá esta parte primero, luego PARTE 2/2
         radial-gradient(700px 380px at 20% 15%, rgba(203,184,255,.55), transparent 55%),
         radial-gradient(700px 380px at 70% 30%, rgba(255,194,214,.40), transparent 55%),
         radial-gradient(700px 380px at 60% 95%, rgba(189,240,220,.42), transparent 55%);
-      opacity:.55;
+      opacity:.50;
       pointer-events:none;
     }
     .card > *{position:relative; z-index:1}
 
-    .heroMain{padding: 26px 22px; text-align:center;} /* centrado */
+    /* Hero */
+    .hero{padding: 44px 0 22px;}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items: stretch;
+    }
+    .heroMain{padding: 26px 22px; text-align:center;}
     .heroKicker{
       display:inline-flex;
       gap:8px; align-items:center;
@@ -241,16 +238,16 @@ Pegá esta parte primero, luego PARTE 2/2
       background: linear-gradient(135deg, var(--lav), var(--rose), var(--mint));
     }
 
-    /* LOGO GRANDE EN HERO */
+    /* LOGO GRANDE HERO */
     .heroLogo{
-      width: clamp(140px, 22vw, 230px);
-      height: clamp(140px, 22vw, 230px);
+      width: clamp(160px, 24vw, 260px);
+      height: clamp(160px, 24vw, 260px);
       border-radius: 34px;
-      background: rgba(255,255,255,.85);
+      background: rgba(255,255,255,.88);
       border: 1px solid rgba(31,41,55,.12);
       box-shadow: var(--shadow);
-      object-fit: contain; /* no recorta el logo */
-      padding: 12px;       /* aire alrededor */
+      object-fit: contain;
+      padding: 12px;
       margin: 10px auto 14px;
       display:block;
     }
@@ -275,7 +272,7 @@ Pegá esta parte primero, luego PARTE 2/2
       gap:8px;
       margin: 0 auto 18px;
       justify-content:center;
-      max-width: 880px;
+      max-width: 900px;
     }
     .chip{
       font-size: 12px;
@@ -285,7 +282,11 @@ Pegá esta parte primero, luego PARTE 2/2
       background: rgba(255,255,255,.62);
       color: rgba(31,41,55,.84);
     }
-    .heroActions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top: 8px}
+    .heroActions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 8px;
+    }
 
     .note{
       display:flex; gap:10px; align-items:flex-start;
@@ -302,7 +303,7 @@ Pegá esta parte primero, luego PARTE 2/2
     }
     .note svg{width:18px; height:18px; flex:0 0 auto; margin-top:1px}
 
-    .heroSide{padding: 18px}
+    .heroSide{padding: 18px;}
     .sideTop{
       display:flex; align-items:center; gap:12px;
       padding: 14px;
@@ -310,6 +311,7 @@ Pegá esta parte primero, luego PARTE 2/2
       border: 1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.58);
       box-shadow: var(--shadow2);
+      min-width:0;
     }
     .sideTop img{
       width:64px; height:64px;
@@ -317,9 +319,12 @@ Pegá esta parte primero, luego PARTE 2/2
       border:1px solid rgba(31,41,55,.12);
       background:#fff;
       object-fit: cover;
+      flex:0 0 auto;
     }
+    .sideTop .meta{min-width:0}
     .sideTop .meta strong{display:block; font-size: 14px}
     .sideTop .meta span{display:block; font-size: 12px; color: var(--muted); margin-top: 2px}
+
     .sideList{margin-top: 12px; display:grid; gap:10px;}
     .mini{
       padding: 12px 12px;
@@ -330,11 +335,13 @@ Pegá esta parte primero, luego PARTE 2/2
       font-size: 13px;
       color: rgba(31,41,55,.86);
       line-height: 1.45;
+      min-width:0;
     }
     .mini b{font-weight:700}
     .mini .line{display:flex; gap:8px; align-items:flex-start}
     .mini svg{width:16px; height:16px; flex:0 0 auto; margin-top: 2px}
 
+    /* Sections */
     section{padding: 18px 0}
     .sectionTitle{
       display:flex; align-items:flex-end; justify-content:space-between;
@@ -360,6 +367,7 @@ Pegá esta parte primero, luego PARTE 2/2
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.56);
       box-shadow: var(--shadow2);
+      min-width:0;
     }
     .service h3{margin:0 0 6px; font-size: 15px;}
     .service p{margin:0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.5;}
@@ -373,6 +381,7 @@ Pegá esta parte primero, luego PARTE 2/2
       background: rgba(255,255,255,.68);
       border:1px solid rgba(31,41,55,.10);
       box-shadow: var(--shadow2);
+      max-width: 100%;
     }
     .service .sbtn:hover{transform: translateY(-1px)}
     .service .sbtn svg{width:16px; height:16px}
@@ -388,6 +397,7 @@ Pegá esta parte primero, luego PARTE 2/2
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.60);
       box-shadow: var(--shadow2);
+      min-width:0;
     }
     .step .n{
       width:34px; height:34px;
@@ -412,6 +422,7 @@ Pegá esta parte primero, luego PARTE 2/2
       border-radius: var(--radius2);
       box-shadow: var(--shadow2);
       padding: 12px 14px;
+      min-width:0;
     }
     summary{
       cursor:pointer;
@@ -421,6 +432,22 @@ Pegá esta parte primero, luego PARTE 2/2
     }
     summary::-webkit-details-marker{display:none}
     details p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.55}
+
+    /* Turnos grid */
+    .turnosGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .panel{
+      padding:16px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(31,41,55,.10);
+      background: rgba(255,255,255,.58);
+      box-shadow: var(--shadow2);
+      min-width:0;
+    }
 
     /* Floating WhatsApp */
     .wafab{
@@ -435,7 +462,7 @@ Pegá esta parte primero, luego PARTE 2/2
       border-radius: 999px;
       text-decoration:none;
       color: #0b1f16;
-      background: rgba(255,255,255,.80);
+      background: rgba(255,255,255,.82);
       border:1px solid rgba(31,41,55,.12);
       box-shadow: var(--shadow);
       backdrop-filter: blur(12px);
@@ -452,38 +479,8 @@ Pegá esta parte primero, luego PARTE 2/2
     .wafab span{display:block; font-size: 12px; color: rgba(31,41,55,.72)}
     .wafab svg{width:18px; height:18px}
 
-    /* Responsive */
-    @media (max-width: 920px){
-      .heroGrid{grid-template-columns: 1fr; }
-      .brand{min-width:auto}
-      .menu{display:none}
-      .hamb{display:inline-flex}
-      .grid{grid-template-columns: 1fr 1fr}
-      .steps{grid-template-columns: 1fr}
-      .faq{grid-template-columns: 1fr}
-    }
-    @media (max-width: 520px){
-      .grid{grid-template-columns: 1fr}
-      .heroMain{padding: 22px 16px}
-      .heroSide{padding: 14px}
-      .sideTop{padding: 12px}
-      .wafab{left: 14px; right: 14px; justify-content: center}
-      .wafab .text{display:none}
-      .heroLogo{
-        width: min(220px, 78vw);
-        height: min(220px, 78vw);
-        border-radius: 30px;
-      }
-      /* en móviles, si querés que el overlay se vea MÁS grande sin recortar:
-         sube un poco el contain usando un "trick" con background-size */
-      body::before{
-        background-size: 92% auto; /* sigue sin recortar */
-        opacity: .14;
-      }
-    }
-
     footer{
-      padding: 26px 0 86px;
+      padding: 26px 0 86px; /* espacio para botón */
       color: rgba(31,41,55,.72);
       font-size: 13px;
     }
@@ -495,6 +492,37 @@ Pegá esta parte primero, luego PARTE 2/2
     }
     .foot a{color: rgba(31,41,55,.78); text-decoration:none; font-weight: 700}
     .foot a:hover{text-decoration: underline}
+
+    /* Responsive (evita recortes en móvil) */
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns: 1fr;}
+      .turnosGrid{grid-template-columns: 1fr;}
+      .brand{min-width:auto}
+      .menu{display:none}
+      .hamb{display:inline-flex}
+      .grid{grid-template-columns: 1fr 1fr}
+      .steps{grid-template-columns: 1fr}
+      .faq{grid-template-columns: 1fr}
+    }
+    @media (max-width: 520px){
+      :root{ --overlayOpacity: .20; } /* un toque más visible en móvil */
+      .wrap{padding: 0 14px;}
+      .grid{grid-template-columns: 1fr}
+      .heroMain{padding: 22px 16px}
+      .heroSide{padding: 14px}
+      .sideTop{padding: 12px}
+      .wafab{left: 14px; right: 14px; justify-content: center}
+      .wafab .text{display:none}
+      .heroLogo{
+        width: min(240px, 82vw);
+        height: min(240px, 82vw);
+        border-radius: 30px;
+      }
+      /* Overlay sin recorte pero mejor “encuadrado” en pantallas altas */
+      body::before{
+        background-size: 92% auto; /* sigue sin recortar */
+      }
+    }
   </style>
 </head>
 <body>
@@ -525,7 +553,7 @@ Pegá esta parte primero, luego PARTE 2/2
           <a href="#turnos">Turnos</a>
         </nav>
 
-        <div style="display:flex; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
           <a class="btn dark" id="ctaTop" href="#turnos" aria-label="Reservar por WhatsApp">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
@@ -555,13 +583,15 @@ Pegá esta parte primero, luego PARTE 2/2
 
   <main>
     <div class="wrap">
+
       <section class="hero" id="inicio">
         <div class="heroGrid">
+
           <div class="card heroMain">
             <div class="heroKicker"><span class="dot"></span> Terapias holísticas • espacio cuidado y confidencial</div>
 
             <!-- LOGO GRANDE EN HERO -->
-            <img class="heroLogo" src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo grande">
+            <img class="heroLogo" src="https://iili.io/fbK9l1e.jpg" alt="Unalome del alma logo grande" />
 
             <h1>Terapias holísticas para armonizar tu energía y tu bienestar</h1>
             <p class="sub">
@@ -619,6 +649,7 @@ Pegá esta parte primero, luego PARTE 2/2
                   <div><b>Atención:</b> <span id="locTxt2"></span></div>
                 </div>
               </div>
+
               <div class="mini">
                 <div class="line">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -628,6 +659,7 @@ Pegá esta parte primero, luego PARTE 2/2
                   <div><b>Modalidad:</b> Presencial u online (editá esto)</div>
                 </div>
               </div>
+
               <div class="mini">
                 <div class="line">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -638,11 +670,13 @@ Pegá esta parte primero, luego PARTE 2/2
                   <div><b>Duración:</b> 45–60 min aprox. (editá esto)</div>
                 </div>
               </div>
+
               <a class="btn" id="igLinkSide" href="#" target="_blank" rel="noopener" style="justify-content:center;">
                 Ver Instagram
               </a>
             </div>
           </aside>
+
         </div>
       </section>
 
@@ -760,9 +794,7 @@ Pegá esta parte primero, luego PARTE 2/2
             <path d="M12 21c4.97 0 9-4.03 9-9S16.97 3 12 3 3 7.03 3 12s4.03 9 9 9Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
             <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <div>
-            <b>Espacio cuidado:</b> confidencial, respetuoso y sin juicio.
-          </div>
+          <div><b>Espacio cuidado:</b> confidencial, respetuoso y sin juicio.</div>
         </div>
       </section>
 
@@ -796,94 +828,86 @@ Pegá esta parte primero, luego PARTE 2/2
           </details>
         </div>
       </section>
-    </div>
-  </main>
-<!-- =========================
-PARTE 2/2 — index.html (MODIFICADO)
-Pegá esta parte debajo de la PARTE 1/2
-========================= -->
 
-  <section id="turnos">
-    <div class="wrap">
-      <div class="sectionTitle">
-        <div>
-          <h2>Turnos y contacto</h2>
-          <p>Escribime y coordinamos. Respuesta por WhatsApp.</p>
+      <section id="turnos">
+        <div class="sectionTitle">
+          <div>
+            <h2>Turnos y contacto</h2>
+            <p>Escribime y coordinamos. Respuesta por WhatsApp.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="card" style="padding:18px;">
-        <div style="display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:stretch;">
-          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
-            <h3 style="margin:0 0 8px; font-size:18px;">Reservá tu turno</h3>
-            <p style="margin:0 0 14px; color: var(--muted); font-size: 13px; line-height:1.55;">
-              Contame qué necesitás y te recomiendo la terapia ideal. Después coordinamos día y horario.
-            </p>
+        <div class="card" style="padding:18px;">
+          <div class="turnosGrid">
+            <div class="panel">
+              <h3 style="margin:0 0 8px; font-size:18px;">Reservá tu turno</h3>
+              <p style="margin:0 0 14px; color: var(--muted); font-size: 13px; line-height:1.55;">
+                Contame qué necesitás y te recomiendo la terapia ideal. Después coordinamos día y horario.
+              </p>
 
-            <div style="display:flex; flex-wrap:wrap; gap:10px;">
-              <a class="btn dark" id="ctaTurnos" href="#">
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <a class="btn dark" id="ctaTurnos" href="#">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
+                    <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+                  </svg>
+                  Escribirme por WhatsApp
+                </a>
+
+                <a class="btn" id="igLinkTurnos" href="#" target="_blank" rel="noopener">
+                  Ver perfil de Instagram
+                </a>
+              </div>
+
+              <div style="margin-top:12px; display:grid; gap:10px;">
+                <div class="mini">
+                  <div class="line">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                      <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <div><b>Ubicación:</b> <span id="locTxt3"></span></div>
+                  </div>
+                </div>
+                <div class="mini">
+                  <div class="line">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M4 8h16M6 4v4M18 4v4M6 20v-6a6 6 0 0 1 12 0v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                    </svg>
+                    <div><b>Horarios:</b> a coordinar por WhatsApp (editá si querés)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3 style="margin:0 0 8px; font-size:18px;">Mensaje rápido</h3>
+              <p style="margin:0 0 10px; color: var(--muted); font-size: 13px; line-height:1.55;">
+                Tocá un botón y te deja el mensaje listo para enviar.
+              </p>
+
+              <div style="display:grid; gap:10px;">
+                <a class="btn" id="quick1" href="#" style="justify-content:center;">Consultar por turno (general)</a>
+                <a class="btn" id="quick2" href="#" style="justify-content:center;">Consultar por Reiki</a>
+                <a class="btn" id="quick3" href="#" style="justify-content:center;">Consultar por Registros Akáshicos</a>
+                <a class="btn" id="quick4" href="#" style="justify-content:center;">Consultar por Limpieza energética</a>
+              </div>
+
+              <div class="note" style="margin-top:12px;">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
-                  <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                  <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M11 11h1v6h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
-                Escribirme por WhatsApp
-              </a>
-
-              <a class="btn" id="igLinkTurnos" href="#" target="_blank" rel="noopener">
-                Ver perfil de Instagram
-              </a>
-            </div>
-
-            <div style="margin-top:12px; display:grid; gap:10px;">
-              <div class="mini">
-                <div class="line">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
-                    <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                  <div><b>Ubicación:</b> <span id="locTxt3"></span></div>
-                </div>
-              </div>
-              <div class="mini">
-                <div class="line">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 8h16M6 4v4M18 4v4M6 20v-6a6 6 0 0 1 12 0v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
-                  </svg>
-                  <div><b>Horarios:</b> a coordinar por WhatsApp (editá si querés)</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style="padding:16px; border-radius: var(--radius2); border:1px solid rgba(31,41,55,.10); background: rgba(255,255,255,.58); box-shadow: var(--shadow2);">
-            <h3 style="margin:0 0 8px; font-size:18px;">Mensaje rápido</h3>
-            <p style="margin:0 0 10px; color: var(--muted); font-size: 13px; line-height:1.55;">
-              Tocá un botón y te deja el mensaje listo para enviar.
-            </p>
-
-            <div style="display:grid; gap:10px;">
-              <a class="btn" id="quick1" href="#" style="justify-content:center;">Consultar por turno (general)</a>
-              <a class="btn" id="quick2" href="#" style="justify-content:center;">Consultar por Reiki</a>
-              <a class="btn" id="quick3" href="#" style="justify-content:center;">Consultar por Registros Akáshicos</a>
-              <a class="btn" id="quick4" href="#" style="justify-content:center;">Consultar por Limpieza energética</a>
-            </div>
-
-            <div class="note" style="margin-top:12px;">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
-                <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                <path d="M11 11h1v6h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              <div>
-                <b>Tip:</b> si querés, editá el texto de los mensajes en el script (queda más personalizado).
+                <div><b>Tip:</b> si querés, editá el texto de los mensajes en el script.</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <footer>
-        <div class="foot wrap">
+        <div class="foot">
           <div>© <span id="year"></span> Unalome del alma · Terapias Holísticas</div>
           <div>
             Creado y diseñado por
@@ -891,8 +915,9 @@ Pegá esta parte debajo de la PARTE 1/2
           </div>
         </div>
       </footer>
+
     </div>
-  </section>
+  </main>
 
   <!-- WhatsApp flotante -->
   <a class="wafab" id="waFab" href="#" aria-label="WhatsApp">
