@@ -41,6 +41,7 @@
       --ctaInk: #ffffff;
 
       --overlayImg: url("https://iili.io/fbKG9GR.md.jpg");
+      --overlayOpacity: .12; /* MÁS CLARO: se ve pero no tapa */
     }
 
     *{box-sizing:border-box}
@@ -55,11 +56,13 @@
         radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.35), transparent 55%),
         linear-gradient(180deg, var(--bg), var(--bg2));
       min-height:100vh;
-      overflow-x:hidden;
-      width:100%;
+
+      /* Anti-desplazamiento móvil (corta overflow lateral real) */
+      overflow-x: hidden;
+      width: 100%;
     }
 
-    /* OVERLAY SIN OPACIDAD (100% visible) */
+    /* Overlay global (SIN recorte, visible suave). */
     body::before{
       content:"";
       position: fixed;
@@ -69,14 +72,13 @@
       background-image: var(--overlayImg);
       background-repeat: no-repeat;
       background-position: center;
-      background-size: contain; /* no recorta */
-      opacity: 1; /* sin opacidad */
+      background-size: contain; /* NO recorta */
+      opacity: var(--overlayOpacity);
+      filter: saturate(1.02) contrast(1.03);
       transform: translateZ(0);
     }
 
-    /* IMPORTANTE: si querés overlay 100% y a la vez mantener legibilidad,
-       dejamos un velo MUY leve para que no te “rompa” el texto.
-       Si lo querés 100% puro (sin nada arriba), poné opacity:0 acá. */
+    /* velo pastel para integrar el overlay sin tapar */
     body::after{
       content:"";
       position: fixed;
@@ -84,24 +86,27 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.10), transparent 55%),
-        radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.08), transparent 55%),
-        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.08), transparent 55%);
-      opacity: .65;
+        radial-gradient(900px 520px at 20% 15%, rgba(203,184,255,.18), transparent 55%),
+        radial-gradient(900px 520px at 80% 25%, rgba(255,194,214,.16), transparent 55%),
+        radial-gradient(900px 520px at 55% 90%, rgba(189,240,220,.14), transparent 55%);
+      opacity: .95;
     }
 
+    /* Todo el contenido arriba */
     header, main, footer, .wafab{ position: relative; z-index: 1; }
 
     a{color:inherit}
     img{max-width:100%; height:auto; display:block}
 
+    /* Wrap sin overflow */
     .wrap{
       max-width:var(--max);
       margin:0 auto;
       padding:0 18px;
-      width:100%;
+      width: 100%;
     }
 
+    /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
       backdrop-filter: blur(14px);
@@ -109,21 +114,22 @@
       border-bottom: 1px solid rgba(31,41,55,.08);
     }
 
+    /* CLAVE: evitar que el header empuje cosas fuera de pantalla */
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       padding:12px 0;
-      min-width:0;
+      min-width: 0; /* permite shrink */
     }
 
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
-      min-width:0;
-      flex:1 1 auto;
+      min-width: 0;    /* permite shrink */
+      flex: 1 1 auto;  /* ocupa y se achica */
     }
     .brand img{
       width:44px; height:44px; border-radius: 14px;
@@ -141,17 +147,17 @@
     }
     .brand .t strong{
       font-size:14px; letter-spacing:.2px;
-      white-space:nowrap;
+      white-space: nowrap;
       overflow:hidden;
-      text-overflow:ellipsis;
-      max-width:38vw;
+      text-overflow: ellipsis;
+      max-width: 38vw;
     }
     .brand .t span{
       font-size:12px; color:var(--muted);
-      white-space:nowrap;
+      white-space: nowrap;
       overflow:hidden;
-      text-overflow:ellipsis;
-      max-width:38vw;
+      text-overflow: ellipsis;
+      max-width: 38vw;
     }
 
     .menu{display:flex; align-items:center; gap:10px;}
@@ -159,7 +165,7 @@
       text-decoration:none;
       font-size:13px;
       padding:8px 10px;
-      border-radius:999px;
+      border-radius: 999px;
       border:1px solid transparent;
       color: rgba(31,41,55,.86);
     }
@@ -172,17 +178,17 @@
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
       padding:11px 14px;
-      border-radius:999px;
+      border-radius: 999px;
       border:1px solid rgba(31,41,55,.14);
       background: rgba(255,255,255,.68);
       box-shadow: var(--shadow2);
       text-decoration:none;
-      font-weight:600;
-      font-size:13px;
+      font-weight: 600;
+      font-size: 13px;
       transition: transform .15s ease, background .15s ease;
-      white-space:nowrap;
-      max-width:100%;
-      min-width:0;
+      white-space: nowrap;
+      max-width: 100%;
+      min-width: 0;
     }
     .btn:hover{transform: translateY(-1px)}
     .btn.primary{
@@ -190,22 +196,29 @@
       border-color: rgba(31,41,55,.16);
     }
     .btn.dark{
-      background: var(--ink);
-      color: #fff;
+      background: var(--cta);
+      color: var(--ctaInk);
       border-color: rgba(31,41,55,.26);
     }
     .btn svg{width:16px; height:16px; flex:0 0 auto}
 
-    .navRight{display:flex; align-items:center; gap:10px; flex:0 0 auto; min-width:0;}
+    /* Contenedor derecha header */
+    .navRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex: 0 0 auto;
+      min-width: 0;
+    }
 
     .hamb{
       display:none;
-      border-radius:14px;
+      border-radius: 14px;
       padding:10px 12px;
       border:1px solid rgba(31,41,55,.14);
       background: rgba(255,255,255,.75);
       box-shadow: var(--shadow2);
-      flex:0 0 auto;
+      flex: 0 0 auto;
     }
     .hamb svg{width:18px; height:18px}
 
@@ -213,29 +226,30 @@
     .mobilePanel .inner{
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.72);
-      border-radius:20px;
-      padding:10px;
+      border-radius: var(--radius);
+      padding: 10px;
       box-shadow: var(--shadow2);
     }
     .mobilePanel a{
       display:block;
       padding:10px 12px;
       text-decoration:none;
-      border-radius:14px;
-      font-size:14px;
+      border-radius: 14px;
+      font-size: 14px;
       color: rgba(31,41,55,.92);
     }
     .mobilePanel a:hover{background: rgba(31,41,55,.05)}
 
+    /* Cards */
     .card{
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.70);
-      border-radius:28px;
+      border-radius: var(--radius2);
       box-shadow: var(--shadow);
       position:relative;
       overflow:hidden;
-      width:100%;
-      min-width:0;
+      width: 100%;
+      min-width: 0;
     }
     .card::before{
       content:"";
@@ -249,66 +263,72 @@
     }
     .card > *{position:relative; z-index:1}
 
-    .hero{padding:44px 0 22px;}
+    /* Hero */
+    .hero{padding: 44px 0 22px;}
     .heroGrid{
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap:18px;
-      align-items:stretch;
+      align-items: stretch;
     }
-    .heroMain{padding:26px 22px; text-align:center;}
-
+    .heroMain{padding: 26px 22px; text-align:center;}
     .heroKicker{
-      display:inline-flex; gap:8px; align-items:center;
+      display:inline-flex;
+      gap:8px; align-items:center;
       padding:7px 10px;
-      border-radius:999px;
+      border-radius: 999px;
       background: rgba(255,255,255,.65);
       border:1px solid rgba(31,41,55,.10);
       color: rgba(31,41,55,.84);
-      font-size:12px;
-      margin-bottom:12px;
+      font-size: 12px;
+      margin-bottom: 12px;
       box-shadow: var(--shadow2);
     }
     .heroKicker .dot{
-      width:8px; height:8px; border-radius:999px;
+      width:8px; height:8px; border-radius: 999px;
       background: linear-gradient(135deg, var(--lav), var(--rose), var(--mint));
     }
 
+    /* LOGO GRANDE HERO */
     .heroLogo{
       width: clamp(160px, 24vw, 260px);
       height: clamp(160px, 24vw, 260px);
-      border-radius:34px;
+      border-radius: 34px;
       background: rgba(255,255,255,.88);
-      border:1px solid rgba(31,41,55,.12);
+      border: 1px solid rgba(31,41,55,.12);
       box-shadow: var(--shadow);
       object-fit: contain;
-      padding:12px;
-      margin:10px auto 14px;
+      padding: 12px;
+      margin: 10px auto 14px;
+      display:block;
     }
 
     h1{
-      margin:0 0 10px;
+      margin: 0 0 10px;
       font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
       font-size: clamp(26px, 4.4vw, 40px);
-      line-height:1.08;
+      letter-spacing: .2px;
+      line-height: 1.08;
     }
     .sub{
-      margin:0 auto 16px;
+      margin: 0 auto 16px;
       color: var(--muted);
-      font-size:15px;
-      line-height:1.55;
-      max-width:56ch;
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 56ch;
     }
     .chips{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin:0 auto 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin: 0 auto 18px;
       justify-content:center;
-      max-width:900px;
+      max-width: 900px;
     }
     .chip{
-      font-size:12px;
-      padding:7px 10px;
-      border-radius:999px;
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.62);
       color: rgba(31,41,55,.84);
@@ -316,143 +336,186 @@
     .heroActions{
       display:flex; gap:10px; flex-wrap:wrap;
       justify-content:center;
-      margin-top:8px;
+      margin-top: 8px;
     }
 
     .note{
       display:flex; gap:10px; align-items:flex-start;
-      margin:14px auto 0;
-      padding:12px 12px;
-      border-radius:20px;
+      margin: 14px auto 0;
+      padding: 12px 12px;
+      border-radius: var(--radius);
       background: rgba(255,255,255,.56);
       border:1px solid rgba(31,41,55,.10);
       color: rgba(31,41,55,.80);
-      font-size:13px;
-      line-height:1.45;
-      max-width:760px;
+      font-size: 13px;
+      line-height: 1.45;
+      max-width: 760px;
       text-align:left;
       min-width:0;
     }
+    .note svg{width:18px; height:18px; flex:0 0 auto; margin-top:1px}
 
-    .heroSide{padding:18px;}
-
+    .heroSide{padding: 18px;}
     .sideTop{
       display:flex; align-items:center; gap:12px;
-      padding:14px;
-      border-radius:28px;
-      border:1px solid rgba(31,41,55,.10);
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.58);
       box-shadow: var(--shadow2);
       min-width:0;
     }
     .sideTop img{
-      width:64px; height:64px; border-radius:20px;
+      width:64px; height:64px;
+      border-radius: 20px;
       border:1px solid rgba(31,41,55,.12);
       background:#fff;
       object-fit: cover;
       flex:0 0 auto;
     }
     .sideTop .meta{min-width:0}
-    .sideTop .meta strong{display:block; font-size:14px}
-    .sideTop .meta span{display:block; font-size:12px; color: var(--muted); margin-top:2px}
+    .sideTop .meta strong{display:block; font-size: 14px}
+    .sideTop .meta span{display:block; font-size: 12px; color: var(--muted); margin-top: 2px}
 
-    .sideList{margin-top:12px; display:grid; gap:10px;}
+    .sideList{margin-top: 12px; display:grid; gap:10px;}
     .mini{
-      padding:12px 12px;
-      border-radius:28px;
+      padding: 12px 12px;
+      border-radius: var(--radius2);
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.55);
       box-shadow: var(--shadow2);
-      font-size:13px;
+      font-size: 13px;
       color: rgba(31,41,55,.86);
-      line-height:1.45;
+      line-height: 1.45;
       min-width:0;
     }
+    .mini b{font-weight:700}
     .mini .line{display:flex; gap:8px; align-items:flex-start}
+    .mini svg{width:16px; height:16px; flex:0 0 auto; margin-top: 2px}
 
-    section{padding:18px 0}
-    .sectionTitle{display:flex; gap:14px; margin:18px 0 12px; align-items:flex-end; justify-content:space-between;}
-    .sectionTitle h2{margin:0; font-size:20px; font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;}
-    .sectionTitle p{margin:0; color: var(--muted); font-size:13px}
+    /* Sections */
+    section{padding: 18px 0}
+    .sectionTitle{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px;
+      margin: 18px 0 12px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size: 20px;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      letter-spacing: .2px;
+    }
+    .sectionTitle p{margin:0; color: var(--muted); font-size: 13px}
 
-    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
     .service{
-      padding:14px 14px 12px;
-      border-radius:28px;
+      padding: 14px 14px 12px;
+      border-radius: var(--radius2);
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.56);
       box-shadow: var(--shadow2);
       min-width:0;
     }
-    .service h3{margin:0 0 6px; font-size:15px;}
-    .service p{margin:0 0 10px; color: var(--muted); font-size:13px; line-height:1.5;}
+    .service h3{margin:0 0 6px; font-size: 15px;}
+    .service p{margin:0 0 10px; color: var(--muted); font-size: 13px; line-height: 1.5;}
     .service .sbtn{
       display:inline-flex; gap:8px; align-items:center;
       text-decoration:none;
       font-weight:700;
-      font-size:13px;
-      padding:10px 12px;
-      border-radius:999px;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 999px;
       background: rgba(255,255,255,.68);
       border:1px solid rgba(31,41,55,.10);
       box-shadow: var(--shadow2);
-      max-width:100%;
-      min-width:0;
+      max-width: 100%;
+      min-width: 0;
     }
+    .service .sbtn:hover{transform: translateY(-1px)}
+    .service .sbtn svg{width:16px; height:16px}
 
-    .steps{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
     .step{
-      padding:14px;
-      border-radius:28px;
+      padding: 14px;
+      border-radius: var(--radius2);
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.60);
       box-shadow: var(--shadow2);
       min-width:0;
     }
     .step .n{
-      width:34px; height:34px; border-radius:14px;
+      width:34px; height:34px;
+      border-radius: 14px;
       display:flex; align-items:center; justify-content:center;
       font-weight:800;
       background: linear-gradient(135deg, rgba(203,184,255,.65), rgba(255,194,214,.55), rgba(189,240,220,.50));
       border:1px solid rgba(31,41,55,.10);
-      margin-bottom:10px;
+      margin-bottom: 10px;
     }
     .step b{display:block; margin-bottom:6px}
-    .step span{color: var(--muted); font-size:13px; line-height:1.5}
+    .step span{color: var(--muted); font-size: 13px; line-height:1.5}
 
-    .faq{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    .faq{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
     details{
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.62);
-      border-radius:28px;
+      border-radius: var(--radius2);
       box-shadow: var(--shadow2);
-      padding:12px 14px;
+      padding: 12px 14px;
       min-width:0;
     }
-    summary{cursor:pointer; font-weight:800; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:10px;}
+    summary{
+      cursor:pointer;
+      font-weight:800;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
     summary::-webkit-details-marker{display:none}
-    details p{margin:10px 0 0; color: var(--muted); font-size:13px; line-height:1.55}
+    details p{margin:10px 0 0; color: var(--muted); font-size: 13px; line-height:1.55}
 
-    .turnosGrid{display:grid; grid-template-columns: 1.05fr .95fr; gap:14px; align-items:stretch; min-width:0;}
+    /* Turnos */
+    .turnosGrid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:14px;
+      align-items:stretch;
+      min-width:0;
+    }
     .panel{
       padding:16px;
-      border-radius:28px;
+      border-radius: var(--radius2);
       border:1px solid rgba(31,41,55,.10);
       background: rgba(255,255,255,.58);
       box-shadow: var(--shadow2);
       min-width:0;
     }
 
+    /* Floating WhatsApp */
     .wafab{
       position: fixed;
       right: 14px;
       bottom: 14px;
       z-index: 60;
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
       padding: 12px 14px;
-      border-radius:999px;
+      border-radius: 999px;
       text-decoration:none;
-      color:#0b1f16;
+      color: #0b1f16;
       background: rgba(255,255,255,.82);
       border:1px solid rgba(31,41,55,.12);
       box-shadow: var(--shadow);
@@ -460,27 +523,32 @@
       max-width: calc(100vw - 28px);
     }
     .wafab .waicon{
-      width:40px; height:40px; border-radius:999px;
+      width:40px; height:40px; border-radius: 999px;
       display:flex; align-items:center; justify-content:center;
       background: linear-gradient(135deg, rgba(189,240,220,.75), rgba(185,221,255,.55));
       border:1px solid rgba(31,41,55,.10);
       flex:0 0 auto;
     }
-    .wafab strong{display:block; font-size:13px; line-height:1.1}
-    .wafab span{display:block; font-size:12px; color: rgba(31,41,55,.72)}
+    .wafab strong{display:block; font-size: 13px; line-height:1.1}
+    .wafab span{display:block; font-size: 12px; color: rgba(31,41,55,.72)}
     .wafab svg{width:18px; height:18px}
 
-    footer{padding:26px 0 86px; color: rgba(31,41,55,.72); font-size:13px;}
+    footer{
+      padding: 26px 0 86px;
+      color: rgba(31,41,55,.72);
+      font-size: 13px;
+    }
     .foot{
       display:flex; align-items:center; justify-content:space-between;
-      gap:12px; flex-wrap:wrap;
-      border-top:1px solid rgba(31,41,55,.10);
-      padding-top:14px;
+      gap: 12px; flex-wrap:wrap;
+      border-top: 1px solid rgba(31,41,55,.10);
+      padding-top: 14px;
       min-width:0;
     }
-    .foot a{color: rgba(31,41,55,.78); text-decoration:none; font-weight:700}
+    .foot a{color: rgba(31,41,55,.78); text-decoration:none; font-weight: 700}
     .foot a:hover{text-decoration: underline}
 
+    /* Responsive (SIN desplazamientos) */
     @media (max-width: 980px){
       .heroGrid{grid-template-columns: 1fr;}
       .turnosGrid{grid-template-columns: 1fr;}
@@ -491,35 +559,42 @@
       .faq{grid-template-columns: 1fr}
     }
 
+    /* FIX HEADER EN MÓVIL: evita que el botón empuje el hamburguesa afuera */
     @media (max-width: 520px){
-      .wrap{padding:0 14px;}
-      .brand img{width:40px; height:40px; border-radius:13px;}
-      .brand .t span{display:none;}
-      .brand .t strong{max-width:52vw;}
+      :root{ --overlayOpacity: .13; } /* un toque más visible en móvil, pero claro */
+      .wrap{padding: 0 14px;}
 
-      /* ocultamos CTA del header en mobile para que el hamburguesa NUNCA quede afuera */
+      /* Brand más compacto */
+      .brand img{width:40px; height:40px; border-radius: 13px;}
+      .brand .t span{display:none;}
+      .brand .t strong{max-width: 52vw;}
+
+      /* Ocultamos el CTA del header SOLO en móviles para que NO desplace */
       #ctaTop{display:none;}
 
       .grid{grid-template-columns: 1fr}
-      .heroMain{padding:22px 16px}
-      .heroSide{padding:14px}
-      .sideTop{padding:12px}
+      .heroMain{padding: 22px 16px}
+      .heroSide{padding: 14px}
+      .sideTop{padding: 12px}
 
-      .wafab{left:14px; right:14px; justify-content:center}
+      .wafab{left: 14px; right: 14px; justify-content: center}
       .wafab .text{display:none}
 
       .heroLogo{
         width: min(240px, 82vw);
         height: min(240px, 82vw);
-        border-radius:30px;
+        border-radius: 30px;
       }
 
-      body::before{background-size: 92% auto;}
+      body::before{
+        background-size: 92% auto; /* sigue sin recortar */
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Config rápida (EDITÁ SOLO ESTO) -->
   <script>
     window.__CFG__ = {
       whatsapp: "54911XXXXXXXX", // <-- REEMPLAZÁ por tu número: ej 5491164499481
@@ -547,6 +622,10 @@
 
         <div class="navRight">
           <a class="btn dark" id="ctaTop" href="#turnos" aria-label="Reservar por WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
+              <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+            </svg>
             Reservar por WhatsApp
           </a>
 
@@ -595,11 +674,21 @@
             </div>
 
             <div class="heroActions">
-              <a class="btn primary" id="ctaHero" href="#turnos">Consultar por un turno</a>
+              <a class="btn primary" id="ctaHero" href="#turnos">
+                Consultar por un turno
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
               <a class="btn" href="#servicios">Ver servicios</a>
             </div>
 
             <div class="note">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <path d="M12 7v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
               <div>
                 <b>Ubicación:</b> <span id="locTxt"></span><br/>
                 <span>Para reservar, escribime por WhatsApp y coordinamos día y horario.</span>
@@ -617,9 +706,36 @@
             </div>
 
             <div class="sideList">
-              <div class="mini"><div class="line"><div><b>Atención:</b> <span id="locTxt2"></span></div></div></div>
-              <div class="mini"><div class="line"><div><b>Modalidad:</b> Presencial u online (editá esto)</div></div></div>
-              <div class="mini"><div class="line"><div><b>Duración:</b> 45–60 min aprox. (editá esto)</div></div></div>
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                    <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <div><b>Atención:</b> <span id="locTxt2"></span></div>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 12s2.5-5 8-5 8 5 8 5-2.5 5-8 5-8-5-8-5Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <div><b>Modalidad:</b> Presencial u online (editá esto)</div>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="line">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20 7H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                    <path d="M20 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                    <path d="M20 17H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                  </svg>
+                  <div><b>Duración:</b> 45–60 min aprox. (editá esto)</div>
+                </div>
+              </div>
 
               <a class="btn" id="igLinkSide" href="#" target="_blank" rel="noopener" style="justify-content:center;">
                 Ver Instagram
@@ -642,37 +758,73 @@
           <article class="service">
             <h3>✨ Registros Akáshicos</h3>
             <p>Para abrir claridad, comprender procesos y encontrar guía para tu camino.</p>
-            <a class="sbtn waService" data-svc="Registros Akáshicos" href="#">Consultar</a>
+            <a class="sbtn waService" data-svc="Registros Akáshicos" href="#">
+              Consultar
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </article>
 
           <article class="service">
             <h3>✨ Reiki</h3>
             <p>Armonización energética para relajación, equilibrio emocional y bienestar general.</p>
-            <a class="sbtn waService" data-svc="Reiki" href="#">Consultar</a>
+            <a class="sbtn waService" data-svc="Reiki" href="#">
+              Consultar
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </article>
 
           <article class="service">
             <h3>🌈 Limpiezas energéticas</h3>
             <p>Para liberar cargas, renovar tu energía y sentir más liviandad y calma.</p>
-            <a class="sbtn waService" data-svc="Limpiezas energéticas" href="#">Consultar</a>
+            <a class="sbtn waService" data-svc="Limpiezas energéticas" href="#">
+              Consultar
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </article>
 
           <article class="service">
             <h3>🌿 Sanación chamánica guaraní</h3>
             <p>Trabajo profundo de sanación y conexión. Enfoque respetuoso y cuidado.</p>
-            <a class="sbtn waService" data-svc="Sanación chamánica guaraní" href="#">Consultar</a>
+            <a class="sbtn waService" data-svc="Sanación chamánica guaraní" href="#">
+              Consultar
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </article>
 
           <article class="service">
             <h3>✨ Barras de Access</h3>
             <p>Liberación de estrés mental y emociones acumuladas. Sensación de alivio y claridad.</p>
-            <a class="sbtn waService" data-svc="Barras de Access" href="#">Consultar</a>
+            <a class="sbtn waService" data-svc="Barras de Access" href="#">
+              Consultar
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </article>
 
           <article class="service">
             <h3>🦋 Sesiones de mediumnidad</h3>
             <p>Conexión y mensajes en un marco de respeto, contención y claridad.</p>
-            <a class="sbtn waService" data-svc="Sesiones de mediumnidad" href="#">Consultar</a>
+            <a class="sbtn waService" data-svc="Sesiones de mediumnidad" href="#">
+              Consultar
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
           </article>
         </div>
       </section>
@@ -686,9 +838,29 @@
         </div>
 
         <div class="steps">
-          <div class="step"><div class="n">1</div><b>Me escribís por WhatsApp</b><span>Me contás qué estás buscando o qué estás atravesando.</span></div>
-          <div class="step"><div class="n">2</div><b>Te recomiendo la terapia</b><span>Elegimos la opción más adecuada para tu caso.</span></div>
-          <div class="step"><div class="n">3</div><b>Coordinamos turno</b><span>Definimos día y horario.</span></div>
+          <div class="step">
+            <div class="n">1</div>
+            <b>Me escribís por WhatsApp</b>
+            <span>Me contás qué estás buscando o qué estás atravesando.</span>
+          </div>
+          <div class="step">
+            <div class="n">2</div>
+            <b>Te recomiendo la terapia</b>
+            <span>Elegimos juntas/os la opción más adecuada para tu caso.</span>
+          </div>
+          <div class="step">
+            <div class="n">3</div>
+            <b>Coordinamos turno</b>
+            <span>Definimos día y horario. Si hace falta, te explico cómo prepararte.</span>
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:12px;">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 21c4.97 0 9-4.03 9-9S16.97 3 12 3 3 7.03 3 12s4.03 9 9 9Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+            <path d="M9 12l2 2 4-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div><b>Espacio cuidado:</b> confidencial, respetuoso y sin juicio.</div>
         </div>
       </section>
 
@@ -701,10 +873,25 @@
         </div>
 
         <div class="faq">
-          <details><summary>¿Necesito experiencia previa? <span aria-hidden="true">＋</span></summary><p>No. Te guío en todo el proceso, paso a paso.</p></details>
-          <details><summary>¿Se puede hacer a distancia? <span aria-hidden="true">＋</span></summary><p>Podés atenderte presencial u online. (Editá según tu modalidad real.)</p></details>
-          <details><summary>¿Cuánto dura? <span aria-hidden="true">＋</span></summary><p>Entre 45 y 60 minutos aprox. (Ajustalo si manejás otra duración.)</p></details>
-          <details><summary>¿Cómo reservo? <span aria-hidden="true">＋</span></summary><p>Por WhatsApp. Me escribís y coordinamos disponibilidad.</p></details>
+          <details>
+            <summary>¿Necesito experiencia previa? <span aria-hidden="true">＋</span></summary>
+            <p>No. Te guío en todo el proceso, paso a paso, para que te sientas cómoda/o.</p>
+          </details>
+
+          <details>
+            <summary>¿Se puede hacer a distancia? <span aria-hidden="true">＋</span></summary>
+            <p>Podés atenderte presencial u online. (Editá esta respuesta según tu modalidad real.)</p>
+          </details>
+
+          <details>
+            <summary>¿Cuánto dura? <span aria-hidden="true">＋</span></summary>
+            <p>Entre 45 y 60 minutos aprox. (Ajustalo si manejás otra duración.)</p>
+          </details>
+
+          <details>
+            <summary>¿Cómo reservo turno? <span aria-hidden="true">＋</span></summary>
+            <p>Por WhatsApp. Me escribís y te paso disponibilidad para coordinar.</p>
+          </details>
         </div>
       </section>
 
@@ -725,13 +912,37 @@
               </p>
 
               <div style="display:flex; flex-wrap:wrap; gap:10px;">
-                <a class="btn dark" id="ctaTurnos" href="#">Escribirme por WhatsApp</a>
-                <a class="btn" id="igLinkTurnos" href="#" target="_blank" rel="noopener">Ver Instagram</a>
+                <a class="btn dark" id="ctaTurnos" href="#">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M20.52 3.48A11.77 11.77 0 0 0 12.07 0C5.44 0 .07 5.37.07 12c0 2.12.55 4.2 1.6 6.03L0 24l6.17-1.62A11.94 11.94 0 0 0 12.07 24C18.7 24 24.07 18.63 24.07 12c0-3.2-1.25-6.2-3.55-8.52Z" fill="currentColor" opacity=".18"/>
+                    <path d="M12.07 22.03c-1.82 0-3.6-.49-5.16-1.41l-.37-.22-3.66.96.98-3.56-.24-.36A9.9 9.9 0 0 1 2.12 12c0-5.47 4.45-9.93 9.95-9.93 2.65 0 5.14 1.03 7.02 2.91A9.85 9.85 0 0 1 22.02 12c0 5.48-4.46 10.03-9.95 10.03Zm5.78-7.55c-.31-.16-1.85-.92-2.14-1.02-.29-.11-.5-.16-.7.16-.2.31-.8 1.02-.98 1.23-.18.2-.36.23-.67.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.8-1.7-2.11-.18-.31-.02-.48.14-.64.14-.14.31-.36.47-.54.16-.18.2-.31.31-.51.1-.2.05-.39-.03-.54-.08-.16-.7-1.68-.96-2.3-.25-.6-.51-.52-.7-.53h-.6c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.56s1.1 2.97 1.25 3.17c.16.2 2.17 3.31 5.25 4.64.73.31 1.3.5 1.74.64.73.23 1.39.2 1.91.12.58-.09 1.85-.76 2.11-1.49.26-.73.26-1.35.18-1.49-.08-.14-.29-.23-.6-.39Z" fill="currentColor"/>
+                  </svg>
+                  Escribirme por WhatsApp
+                </a>
+
+                <a class="btn" id="igLinkTurnos" href="#" target="_blank" rel="noopener">
+                  Ver perfil de Instagram
+                </a>
               </div>
 
               <div style="margin-top:12px; display:grid; gap:10px;">
-                <div class="mini"><div class="line"><div><b>Ubicación:</b> <span id="locTxt3"></span></div></div></div>
-                <div class="mini"><div class="line"><div><b>Horarios:</b> a coordinar por WhatsApp (editá si querés)</div></div></div>
+                <div class="mini">
+                  <div class="line">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 21s7-4.35 7-11A7 7 0 1 0 5 10c0 6.65 7 11 7 11Z" stroke="currentColor" stroke-width="2" opacity=".65"/>
+                      <path d="M12 10.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <div><b>Ubicación:</b> <span id="locTxt3"></span></div>
+                  </div>
+                </div>
+                <div class="mini">
+                  <div class="line">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M4 8h16M6 4v4M18 4v4M6 20v-6a6 6 0 0 1 12 0v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".65"/>
+                    </svg>
+                    <div><b>Horarios:</b> a coordinar por WhatsApp (editá si querés)</div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -747,6 +958,15 @@
                 <a class="btn" id="quick3" href="#" style="justify-content:center;">Consultar por Registros Akáshicos</a>
                 <a class="btn" id="quick4" href="#" style="justify-content:center;">Consultar por Limpieza energética</a>
               </div>
+
+              <div class="note" style="margin-top:12px;">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                  <path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M11 11h1v6h-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div><b>Tip:</b> si querés, editá el texto de los mensajes en el script.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -755,7 +975,10 @@
       <footer>
         <div class="foot">
           <div>© <span id="year"></span> Unalome del alma · Terapias Holísticas</div>
-          <div>Creado y diseñado por <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener">Ciborg 347</a></div>
+          <div>
+            Creado y diseñado por
+            <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener">Ciborg 347</a>
+          </div>
         </div>
       </footer>
 
